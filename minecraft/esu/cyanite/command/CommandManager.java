@@ -1,9 +1,7 @@
 package esu.cyanite.command;
 
-import esu.cyanite.command.commands.CommandBind;
-import esu.cyanite.command.commands.CommandConfig;
-import esu.cyanite.command.commands.CommandFriend;
-import esu.cyanite.command.commands.CommandToggle;
+import esu.cyanite.command.commands.*;
+
 import java.util.ArrayList;
 
 public class CommandManager {
@@ -14,6 +12,7 @@ public class CommandManager {
         commands.add(new CommandBind(new String[]{"bind"}));
         commands.add(new CommandFriend(new String[] { "friend" }));
         commands.add(new CommandConfig(new String[] { "config" }));
+        commands.add(new CommandQQ(new String[] { "esu" }));
     }
 
     public static ArrayList<Command> getCommands() {
