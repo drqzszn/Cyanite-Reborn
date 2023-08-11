@@ -14,11 +14,11 @@ import com.mojang.authlib.properties.Property;
 import com.mojang.authlib.properties.PropertyMap;
 import com.mojang.authlib.yggdrasil.YggdrasilAuthenticationService;
 
-import cn.kody.debug.Client;
-import cn.kody.debug.mod.Mod;
-import cn.kody.debug.mod.ModManager;
-import cn.kody.debug.ui.GUIMainScreen;
-import cn.kody.debug.utils.render.RenderUtil;
+import esu.cyanite.Client;
+import esu.cyanite.mod.Mod;
+import esu.cyanite.mod.ModManager;
+import esu.cyanite.ui.GUIMainScreen;
+import esu.cyanite.utils.render.RenderUtil;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -216,6 +216,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage
     private static Minecraft theMinecraft;
     public static PlayerControllerMP playerController;
     private boolean fullscreen;
+    long lastTime = -1;
     private boolean enableGLErrorChecking = true;
     private boolean hasCrashed;
 
@@ -314,6 +315,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage
     private final boolean jvm64bit;
     private final boolean isDemo;
     private NetworkManager myNetworkManager;
+    long thisTime;
     private boolean integratedServerIsRunning;
 
     /** The profiler instance */
@@ -1202,6 +1204,16 @@ public class Minecraft implements IThreadListener, IPlayerUsage
         this.frameTimer.addFrame(k - this.startNanoTime);
         this.startNanoTime = k;
 
+        if (lastTime == -1) {
+            lastTime = System.nanoTime() - 1;
+        } else {
+            lastTime = thisTime;
+        }
+        thisTime = System.nanoTime();
+
+        RenderUtil.fps = 1000000000f / (thisTime - lastTime);
+        RenderUtil.ms = (thisTime - lastTime) / 1000000f;
+
         while (getSystemTime() >= this.debugUpdateTime + 1000L)
         {
             debugFPS = this.fpsCounter;
@@ -1263,7 +1275,8 @@ public class Minecraft implements IThreadListener, IPlayerUsage
 
     public int getLimitFramerate()
     {
-        return this.theWorld == null && this.currentScreen != null ? 30 : this.gameSettings.limitFramerate;
+        //return this.theWorld == null && this.currentScreen != null ? 30 : this.gameSettings.limitFramerate;
+        return this.gameSettings.limitFramerate;
     }
 
     public boolean isFramerateLimitBelowMax()

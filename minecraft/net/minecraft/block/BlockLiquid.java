@@ -4,7 +4,7 @@ import java.util.Random;
 
 import com.darkmagician6.eventapi.EventManager;
 
-import cn.kody.debug.events.EventBlockBounds;
+import esu.cyanite.events.EventBlockBounds;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyInteger;

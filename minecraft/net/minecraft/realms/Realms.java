@@ -4,7 +4,7 @@ import com.google.common.util.concurrent.ListenableFuture;
 import com.mojang.authlib.GameProfile;
 import com.mojang.util.UUIDTypeAdapter;
 
-import cn.kody.debug.ui.GUIMainScreen;
+import esu.cyanite.ui.GUIMainScreen;
 
 import java.net.Proxy;
 import net.minecraft.client.Minecraft;

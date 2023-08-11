@@ -3,7 +3,7 @@ package net.minecraft.client.renderer.entity;
 import com.darkmagician6.eventapi.EventManager;
 import com.google.common.collect.Lists;
 
-import cn.kody.debug.events.EventRenderPlayer;
+import esu.cyanite.events.EventRenderPlayer;
 
 import java.nio.FloatBuffer;
 import java.util.List;
@@ -19,7 +19,6 @@ import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.client.renderer.entity.layers.LayerRenderer;
 import net.minecraft.client.renderer.texture.DynamicTexture;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EnumPlayerModelParts;

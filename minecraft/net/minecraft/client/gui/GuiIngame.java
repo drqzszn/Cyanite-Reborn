@@ -5,10 +5,8 @@ import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 
-import cn.kody.debug.events.EventRender2D;
-import cn.kody.debug.mod.ModManager;
-import cn.kody.debug.mod.mods.WORLD.AutoGGBan;
-import cn.kody.debug.utils.time.TimeHelper;
+import esu.cyanite.events.EventRender2D;
+import esu.cyanite.utils.time.TimeHelper;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -18,7 +16,6 @@ import org.lwjgl.opengl.GL11;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.Tessellator;

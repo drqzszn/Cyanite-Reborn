@@ -5,7 +5,7 @@ import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
 import com.google.common.collect.Maps;
 
-import cn.kody.debug.events.EventLivingUpdate;
+import esu.cyanite.events.EventLivingUpdate;
 
 import java.util.Collection;
 import java.util.Iterator;

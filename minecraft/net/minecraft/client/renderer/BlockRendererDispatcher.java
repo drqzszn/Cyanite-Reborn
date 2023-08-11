@@ -1,15 +1,7 @@
 package net.minecraft.client.renderer;
 
-import java.util.ConcurrentModificationException;
-
-import com.darkmagician6.eventapi.EventManager;
-
-import cn.kody.debug.events.EventBlock;
-import cn.kody.debug.mod.ModManager;
-import cn.kody.debug.mod.mods.RENDER.Xray;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.client.resources.IResourceManagerReloadListener;

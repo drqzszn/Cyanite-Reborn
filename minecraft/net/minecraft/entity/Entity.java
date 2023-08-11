@@ -10,9 +10,9 @@ import org.lwjgl.input.Keyboard;
 import com.darkmagician6.eventapi.EventManager;
 import com.darkmagician6.eventapi.types.EventType;
 
-import cn.kody.debug.events.EventStep;
-import cn.kody.debug.mod.ModManager;
-import cn.kody.debug.mod.mods.COMBAT.Hitbox;
+import esu.cyanite.events.EventStep;
+import esu.cyanite.mod.ModManager;
+import esu.cyanite.mod.mods.COMBAT.Hitbox;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFence;
 import net.minecraft.block.BlockFenceGate;

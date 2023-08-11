@@ -6,8 +6,8 @@ import com.google.common.util.concurrent.FutureCallback;
 import com.google.common.util.concurrent.Futures;
 import com.mojang.authlib.GameProfile;
 
-import cn.kody.debug.events.EventPacket;
-import cn.kody.debug.ui.GUIMainScreen;
+import esu.cyanite.events.EventPacket;
+import esu.cyanite.ui.GUIMainScreen;
 import io.netty.buffer.Unpooled;
 import java.io.File;
 import java.io.IOException;

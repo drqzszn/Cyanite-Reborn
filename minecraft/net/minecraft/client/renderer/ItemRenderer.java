@@ -31,7 +31,7 @@ import optifine.Reflector;
 
 import org.lwjgl.opengl.GL11;
 
-import cn.kody.debug.mod.mods.RENDER.BlockAnimation;
+import esu.cyanite.mod.mods.RENDER.BlockAnimation;
 import shadersmod.client.Shaders;
 
 public class ItemRenderer

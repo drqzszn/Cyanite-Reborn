@@ -7,7 +7,7 @@ import java.nio.IntBuffer;
 import java.nio.ShortBuffer;
 import java.util.Arrays;
 import java.util.BitSet;
-import net.minecraft.client.renderer.WorldRenderer$1;
+
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.vertex.VertexFormat;
 import net.minecraft.client.renderer.vertex.VertexFormatElement;
@@ -19,10 +19,10 @@ import optifine.TextureUtils;
 import org.apache.logging.log4j.LogManager;
 import org.lwjgl.opengl.GL11;
 
-import cn.kody.debug.Client;
-import cn.kody.debug.mod.ModManager;
-import cn.kody.debug.mod.mods.RENDER.Xray;
-import cn.kody.debug.utils.color.Colors;
+import esu.cyanite.Client;
+import esu.cyanite.mod.ModManager;
+import esu.cyanite.mod.mods.RENDER.Xray;
+import esu.cyanite.utils.color.Colors;
 import shadersmod.client.SVertexBuilder;
 
 public class WorldRenderer

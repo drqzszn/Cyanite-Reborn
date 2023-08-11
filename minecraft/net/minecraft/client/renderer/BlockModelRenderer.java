@@ -3,7 +3,7 @@ package net.minecraft.client.renderer;
 import java.util.BitSet;
 import java.util.List;
 
-import cn.kody.debug.mod.ModManager;
+import esu.cyanite.mod.ModManager;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLeavesBase;
 import net.minecraft.block.state.IBlockState;

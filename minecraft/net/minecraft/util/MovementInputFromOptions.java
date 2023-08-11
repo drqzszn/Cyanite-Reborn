@@ -1,6 +1,6 @@
 package net.minecraft.util;
 
-import cn.kody.debug.mod.ModManager;
+import esu.cyanite.mod.ModManager;
 import net.minecraft.client.settings.GameSettings;
 
 public class MovementInputFromOptions extends MovementInput

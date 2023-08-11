@@ -8,6 +8,7 @@ import java.lang.reflect.Method;
 import java.util.List;
 import java.util.Map;
 import javax.vecmath.Matrix4f;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.IBlockState;
@@ -296,7 +297,7 @@ public class Reflector
     public static ReflectorField GuiFurnace_tileFurnace = new ReflectorField(GuiFurnace, IInventory.class);
     public static ReflectorClass GuiHopper = new ReflectorClass(GuiHopper.class);
     public static ReflectorField GuiHopper_hopperInventory = new ReflectorField(GuiHopper, IInventory.class, 1);
-    public static ReflectorClass GUIMainScreen = new ReflectorClass(cn.kody.debug.ui.GUIMainScreen.class);
+    public static ReflectorClass GUIMainScreen = new ReflectorClass(esu.cyanite.ui.GUIMainScreen.class);
     public static ReflectorField GuiMainMenu_splashText = new ReflectorField(GUIMainScreen, String.class);
     public static ReflectorClass Minecraft = new ReflectorClass(Minecraft.class);
     public static ReflectorField Minecraft_defaultResourcePack = new ReflectorField(Minecraft, DefaultResourcePack.class);

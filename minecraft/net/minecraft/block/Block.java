@@ -3,9 +3,9 @@ package net.minecraft.block;
 import java.util.List;
 import java.util.Random;
 
-import cn.kody.debug.Client;
-import cn.kody.debug.mod.ModManager;
-import cn.kody.debug.mod.mods.RENDER.Xray;
+import esu.cyanite.Client;
+import esu.cyanite.mod.ModManager;
+import esu.cyanite.mod.mods.RENDER.Xray;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;

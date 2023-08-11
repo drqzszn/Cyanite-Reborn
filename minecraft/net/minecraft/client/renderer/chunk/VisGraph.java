@@ -5,7 +5,7 @@ import java.util.BitSet;
 import java.util.EnumSet;
 import java.util.Set;
 
-import cn.kody.debug.mod.ModManager;
+import esu.cyanite.mod.ModManager;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import optifine.IntegerCache;

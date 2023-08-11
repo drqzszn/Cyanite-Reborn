@@ -3,7 +3,7 @@ package net.minecraft.client.gui;
 import com.darkmagician6.eventapi.EventManager;
 import com.google.common.collect.Lists;
 
-import cn.kody.debug.events.EventChatComponent;
+import esu.cyanite.events.EventChatComponent;
 
 import java.util.Iterator;
 import java.util.List;
