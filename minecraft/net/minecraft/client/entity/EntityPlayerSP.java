@@ -3,6 +3,7 @@ package net.minecraft.client.entity;
 import com.darkmagician6.eventapi.EventManager;
 import com.darkmagician6.eventapi.types.EventType;
 
+import esu.cyanite.Client;
 import esu.cyanite.command.Command;
 import esu.cyanite.command.CommandManager;
 import esu.cyanite.events.EventMove;
@@ -259,6 +260,7 @@ public class EntityPlayerSP extends AbstractClientPlayer
                     this.lastReportedPitch = pre.pitch;
                 }
             }
+            Client.onPre();
             EventManager.call(new EventPreMotion(EventType.POST));
             EventPostMotion post = new EventPostMotion();
             EventManager.call(post);

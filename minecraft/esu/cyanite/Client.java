@@ -1,10 +1,13 @@
 package esu.cyanite;
 
+import com.darkmagician6.eventapi.EventTarget;
 import esu.cyanite.command.CommandManager;
+import esu.cyanite.events.EventPreMotion;
 import esu.cyanite.mod.ModManager;
 import esu.cyanite.ui.ClickGUI.UIClick;
 import esu.cyanite.ui.font.FontManager;
 import esu.cyanite.utils.file.FileUtils;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -36,7 +39,10 @@ public class Client {
     public ModManager modMgr;
     public FontManager fontMgr;
     public UIClick crink;
-    
+
+    public static float yaw;
+    public static float pitch;
+    public static int fuck = 0;
 
     public Client() {
         Display.setTitle(CLIENT_NAME + " v" + CLIENT_VERSION);
@@ -47,8 +53,8 @@ public class Client {
         this.cmdMgr = new CommandManager();
         this.crink = new UIClick();
     }
-    
-    
+
+
     public static String sendGet(String url, String param) throws Exception {
         String line;
         String result = "";
@@ -84,8 +90,7 @@ public class Client {
         try {
             in.close();
             return result;
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             return result;
         }
     }
@@ -94,8 +99,7 @@ public class Client {
         String hwid = null;
         try {
             hwid = Client.hug(String.valueOf(System.getenv("PROCESSOR_IDENTIFIER")) + System.getenv("COMPUTERNAME") + System.getProperty("user.name") + OpenGlHelper.getCpu());
-        }
-        catch (Exception var2) {
+        } catch (Exception var2) {
             var2.printStackTrace();
         }
         return hwid;
@@ -116,9 +120,9 @@ public class Client {
             int two_halfs = 0;
             do {
                 if (halfbyte >= 0 && halfbyte <= 9) {
-                    buf.append((char)(48 + halfbyte));
+                    buf.append((char) (48 + halfbyte));
                 } else {
-                    buf.append((char)(97 + (halfbyte - 10)));
+                    buf.append((char) (97 + (halfbyte - 10)));
                 }
                 halfbyte = data[i] & 15;
             } while (two_halfs++ < 1);
@@ -170,5 +174,19 @@ public class Client {
         return result;
     }
 
+    public static void onPre() {
+        if (fuck != 0) {
+            fuck -= 1;
+        } else {
+            yaw = 114514;
+            pitch = 114514;
+        }
+    }
+
+    public static void setRotation(float y, float p) {
+        yaw = y;
+        pitch = p;
+        fuck = 3;
+    }
 }
 

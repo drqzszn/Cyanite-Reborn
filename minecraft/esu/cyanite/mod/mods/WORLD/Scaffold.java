@@ -1,11 +1,13 @@
 package esu.cyanite.mod.mods.WORLD;
 
+import esu.cyanite.Client;
 import esu.cyanite.events.EventPostMotion;
 import esu.cyanite.events.EventPreMotion;
 import esu.cyanite.mod.Category;
 import esu.cyanite.mod.Mod;
 import esu.cyanite.value.Value;
 import com.darkmagician6.eventapi.EventTarget;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
@@ -28,8 +30,7 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.util.Vec3;
 import org.lwjgl.input.Keyboard;
 
-public class Scaffold
-extends Mod {
+public class Scaffold extends Mod {
     private BlockData blockData;
     private timeHelper time = new timeHelper();
     private timeHelper delay = new timeHelper();
@@ -69,19 +70,20 @@ extends Mod {
                     float[] rot = this.getRotationsBlock(BlockData.position, BlockData.face);
                     event.pitch = rot[1];
                     event.yaw = rot[0];
+                    Client.setRotation(rot[0], rot[1]);
                 }
                 if (this.tower.getValueState().booleanValue()) {
                     if (this.movetower.getValueState().booleanValue()) {
                         if (this.mc.gameSettings.keyBindJump.pressed) {
                             if (this.isMoving2()) {
                                 if (this.isOnGround(0.76) && !this.isOnGround(0.75) && Minecraft.thePlayer.motionY > 0.23 && Minecraft.thePlayer.motionY < 0.25) {
-                                    Minecraft.thePlayer.motionY = (double)Math.round(Minecraft.thePlayer.posY) - Minecraft.thePlayer.posY;
+                                    Minecraft.thePlayer.motionY = (double) Math.round(Minecraft.thePlayer.posY) - Minecraft.thePlayer.posY;
                                 }
                                 if (this.isOnGround(1.0E-4)) {
                                     Minecraft.thePlayer.motionY = 0.42;
                                     Minecraft.thePlayer.motionX *= 0.9;
                                     Minecraft.thePlayer.motionZ *= 0.9;
-                                } else if (Minecraft.thePlayer.posY >= (double)Math.round(Minecraft.thePlayer.posY) - 1.0E-4 && Minecraft.thePlayer.posY <= (double)Math.round(Minecraft.thePlayer.posY) + 1.0E-4) {
+                                } else if (Minecraft.thePlayer.posY >= (double) Math.round(Minecraft.thePlayer.posY) - 1.0E-4 && Minecraft.thePlayer.posY <= (double) Math.round(Minecraft.thePlayer.posY) + 1.0E-4) {
                                     Minecraft.thePlayer.motionY = 0.0;
                                 }
                             } else {
@@ -113,7 +115,7 @@ extends Mod {
     }
 
     public boolean isOnGround(double height) {
-        if (!this.mc.theWorld.getCollidingBoundingBoxes(Minecraft.thePlayer, Minecraft.thePlayer.getEntityBoundingBox().offset(0.0, - height, 0.0)).isEmpty()) {
+        if (!this.mc.theWorld.getCollidingBoundingBoxes(Minecraft.thePlayer, Minecraft.thePlayer.getEntityBoundingBox().offset(0.0, -height, 0.0)).isEmpty()) {
             return true;
         }
         return false;
@@ -124,13 +126,13 @@ extends Mod {
     }
 
     public float[] getRotationsBlock(BlockPos block, EnumFacing face) {
-        double x = (double)block.getX() + 0.5 - Minecraft.thePlayer.posX + (double)face.getFrontOffsetX() / 2.0;
-        double z = (double)block.getZ() + 0.5 - Minecraft.thePlayer.posZ + (double)face.getFrontOffsetZ() / 2.0;
-        double y = (double)block.getY() + 0.5;
-        double d1 = Minecraft.thePlayer.posY + (double)Minecraft.thePlayer.getEyeHeight() - y;
+        double x = (double) block.getX() + 0.5 - Minecraft.thePlayer.posX + (double) face.getFrontOffsetX() / 2.0;
+        double z = (double) block.getZ() + 0.5 - Minecraft.thePlayer.posZ + (double) face.getFrontOffsetZ() / 2.0;
+        double y = (double) block.getY() + 0.5;
+        double d1 = Minecraft.thePlayer.posY + (double) Minecraft.thePlayer.getEyeHeight() - y;
         double d3 = MathHelper.sqrt_double(x * x + z * z);
-        float yaw = (float)(Math.atan2(z, x) * 180.0 / 3.141592653589793) - 90.0f;
-        float pitch = (float)(Math.atan2(d1, d3) * 180.0 / 3.141592653589793);
+        float yaw = (float) (Math.atan2(z, x) * 180.0 / 3.141592653589793) - 90.0f;
+        float pitch = (float) (Math.atan2(d1, d3) * 180.0 / 3.141592653589793);
         if (yaw < 0.0f) {
             yaw += 360.0f;
         }
@@ -143,21 +145,23 @@ extends Mod {
         for (i = 36; i < 45; ++i) {
             ItemStack is;
             Item item;
-            if (!Minecraft.thePlayer.inventoryContainer.getSlot(i).getHasStack() || !((item = (is = Minecraft.thePlayer.inventoryContainer.getSlot(i).getStack()).getItem()) instanceof ItemBlock) || this.blacklisted.contains(((ItemBlock)item).getBlock()) || ((ItemBlock)item).getBlock().getLocalizedName().toLowerCase().contains("chest") || this.blockData == null) continue;
+            if (!Minecraft.thePlayer.inventoryContainer.getSlot(i).getHasStack() || !((item = (is = Minecraft.thePlayer.inventoryContainer.getSlot(i).getStack()).getItem()) instanceof ItemBlock) || this.blacklisted.contains(((ItemBlock) item).getBlock()) || ((ItemBlock) item).getBlock().getLocalizedName().toLowerCase().contains("chest") || this.blockData == null)
+                continue;
             int currentItem = Minecraft.thePlayer.inventory.currentItem;
             Minecraft.thePlayer.sendQueue.addToSendQueue(new C09PacketHeldItemChange(i - 36));
             Minecraft.thePlayer.inventory.currentItem = i - 36;
             Minecraft.playerController.updateController();
             try {
                 this.currentlyHolding = this.mc.thePlayer.inventory.getStackInSlot(i - 36);
-                Minecraft.playerController.onPlayerRightClick(Minecraft.thePlayer, this.mc.theWorld, Minecraft.thePlayer.getHeldItem(), BlockData.position, BlockData.face, new Vec3(BlockData.access$2(this.blockData)).addVector(0.5, 0.5, 0.5).add(new Vec3(BlockData.access$3(this.blockData).getDirectionVec()).scale(0.5)));
-                if (this.noSwing.getValueState().booleanValue()) {
-                    Minecraft.thePlayer.sendQueue.addToSendQueue(new C0APacketAnimation());
-                } else {
-                    Minecraft.thePlayer.swingItem();
+                if (Minecraft.playerController.onPlayerRightClick(Minecraft.thePlayer, this.mc.theWorld, Minecraft.thePlayer.getHeldItem(), BlockData.position, BlockData.face, new Vec3(BlockData.access$2(this.blockData)).addVector(0.5, 0.5, 0.5).add(new Vec3(BlockData.access$3(this.blockData).getDirectionVec()).scale(0.5)))) {
+                    if (this.noSwing.getValueState().booleanValue()) {
+                        Minecraft.thePlayer.sendQueue.addToSendQueue(new C0APacketAnimation());
+                    } else {
+                        Minecraft.thePlayer.swingItem();
+                    }
                 }
-            }
-            catch (Exception exception) {
+
+            } catch (Exception exception) {
                 // empty catch block
             }
             Minecraft.thePlayer.inventory.currentItem = currentItem;
@@ -167,7 +171,8 @@ extends Mod {
         if (this.invCheck()) {
             for (i = 9; i < 36; ++i) {
                 Item item;
-                if (!Minecraft.thePlayer.inventoryContainer.getSlot(i).getHasStack() || !((item = Minecraft.thePlayer.inventoryContainer.getSlot(i).getStack().getItem()) instanceof ItemBlock) || this.blacklisted.contains(((ItemBlock)item).getBlock()) || ((ItemBlock)item).getBlock().getLocalizedName().toLowerCase().contains("chest")) continue;
+                if (!Minecraft.thePlayer.inventoryContainer.getSlot(i).getHasStack() || !((item = Minecraft.thePlayer.inventoryContainer.getSlot(i).getStack().getItem()) instanceof ItemBlock) || this.blacklisted.contains(((ItemBlock) item).getBlock()) || ((ItemBlock) item).getBlock().getLocalizedName().toLowerCase().contains("chest"))
+                    continue;
                 this.swap(i, 7);
                 break;
             }
@@ -176,7 +181,7 @@ extends Mod {
 
     public static float randomFloat(long seed) {
         seed = System.currentTimeMillis() + seed;
-        return 0.3f + (float)new Random(seed).nextInt(70000000) / 1.0E8f + 1.458745E-8f;
+        return 0.3f + (float) new Random(seed).nextInt(70000000) / 1.0E8f + 1.458745E-8f;
     }
 
     protected void swap(int slot, int hotbarNum) {
@@ -186,7 +191,8 @@ extends Mod {
     private boolean invCheck() {
         for (int i = 36; i < 45; ++i) {
             Item item;
-            if (!Minecraft.thePlayer.inventoryContainer.getSlot(i).getHasStack() || !((item = Minecraft.thePlayer.inventoryContainer.getSlot(i).getStack().getItem()) instanceof ItemBlock) || this.blacklisted.contains(((ItemBlock)item).getBlock())) continue;
+            if (!Minecraft.thePlayer.inventoryContainer.getSlot(i).getHasStack() || !((item = Minecraft.thePlayer.inventoryContainer.getSlot(i).getStack().getItem()) instanceof ItemBlock) || this.blacklisted.contains(((ItemBlock) item).getBlock()))
+                continue;
             return false;
         }
         return true;
@@ -198,7 +204,7 @@ extends Mod {
 
     private boolean canPlace(EntityPlayerSP player, WorldClient worldIn, ItemStack heldStack, BlockPos hitPos, EnumFacing side, Vec3 vec3) {
         if (heldStack.getItem() instanceof ItemBlock) {
-            return ((ItemBlock)heldStack.getItem()).canPlaceBlockOnSide(worldIn, hitPos, side, player, heldStack);
+            return ((ItemBlock) heldStack.getItem()).canPlaceBlockOnSide(worldIn, hitPos, side, player, heldStack);
         }
         return false;
     }
@@ -231,7 +237,8 @@ extends Mod {
             if (!Minecraft.thePlayer.inventoryContainer.getSlot(i).getHasStack()) continue;
             ItemStack is = Minecraft.thePlayer.inventoryContainer.getSlot(i).getStack();
             Item item = is.getItem();
-            if (!(is.getItem() instanceof ItemBlock) || this.blacklisted.contains(((ItemBlock)item).getBlock())) continue;
+            if (!(is.getItem() instanceof ItemBlock) || this.blacklisted.contains(((ItemBlock) item).getBlock()))
+                continue;
             blockCount += is.stackSize;
         }
         return blockCount;
@@ -240,7 +247,8 @@ extends Mod {
     private int getBlockSlot() {
         for (int i = 36; i < 45; ++i) {
             ItemStack itemStack = Minecraft.thePlayer.inventoryContainer.getSlot(i).getStack();
-            if (itemStack == null || !(itemStack.getItem() instanceof ItemBlock) || itemStack.stackSize <= 0 || this.blacklisted.stream().anyMatch(e -> e.equals(((ItemBlock)itemStack.getItem()).getBlock()))) continue;
+            if (itemStack == null || !(itemStack.getItem() instanceof ItemBlock) || itemStack.stackSize <= 0 || this.blacklisted.stream().anyMatch(e -> e.equals(((ItemBlock) itemStack.getItem()).getBlock())))
+                continue;
             return i - 36;
         }
         return -1;
@@ -251,16 +259,16 @@ extends Mod {
             return new BlockData(pos.add(0, -1, 0), EnumFacing.UP, this.blockData);
         }
         if (!blacklistedBlocks.contains(this.mc.theWorld.getBlockState(pos.add(-1, 0, 0)).getBlock())) {
-            return new BlockData(pos.add(-1, 0, 0), Keyboard.isKeyDown((int)42) && Minecraft.thePlayer.onGround && Minecraft.thePlayer.fallDistance == 0.0f && this.mc.theWorld.getBlockState(new BlockPos(Minecraft.thePlayer.posX, Minecraft.thePlayer.posY - 1.0, Minecraft.thePlayer.posZ)).getBlock() == Blocks.air ? EnumFacing.DOWN : EnumFacing.EAST, this.blockData);
+            return new BlockData(pos.add(-1, 0, 0), Keyboard.isKeyDown((int) 42) && Minecraft.thePlayer.onGround && Minecraft.thePlayer.fallDistance == 0.0f && this.mc.theWorld.getBlockState(new BlockPos(Minecraft.thePlayer.posX, Minecraft.thePlayer.posY - 1.0, Minecraft.thePlayer.posZ)).getBlock() == Blocks.air ? EnumFacing.DOWN : EnumFacing.EAST, this.blockData);
         }
         if (!blacklistedBlocks.contains(this.mc.theWorld.getBlockState(pos.add(1, 0, 0)).getBlock())) {
-            return new BlockData(pos.add(1, 0, 0), Keyboard.isKeyDown((int)42) && Minecraft.thePlayer.onGround && Minecraft.thePlayer.fallDistance == 0.0f && this.mc.theWorld.getBlockState(new BlockPos(Minecraft.thePlayer.posX, Minecraft.thePlayer.posY - 1.0, Minecraft.thePlayer.posZ)).getBlock() == Blocks.air ? EnumFacing.DOWN : EnumFacing.WEST, this.blockData);
+            return new BlockData(pos.add(1, 0, 0), Keyboard.isKeyDown((int) 42) && Minecraft.thePlayer.onGround && Minecraft.thePlayer.fallDistance == 0.0f && this.mc.theWorld.getBlockState(new BlockPos(Minecraft.thePlayer.posX, Minecraft.thePlayer.posY - 1.0, Minecraft.thePlayer.posZ)).getBlock() == Blocks.air ? EnumFacing.DOWN : EnumFacing.WEST, this.blockData);
         }
         if (!blacklistedBlocks.contains(this.mc.theWorld.getBlockState(pos.add(0, 0, -1)).getBlock())) {
-            return new BlockData(pos.add(0, 0, -1), Keyboard.isKeyDown((int)42) && Minecraft.thePlayer.onGround && Minecraft.thePlayer.fallDistance == 0.0f && this.mc.theWorld.getBlockState(new BlockPos(Minecraft.thePlayer.posX, Minecraft.thePlayer.posY - 1.0, Minecraft.thePlayer.posZ)).getBlock() == Blocks.air ? EnumFacing.DOWN : EnumFacing.SOUTH, this.blockData);
+            return new BlockData(pos.add(0, 0, -1), Keyboard.isKeyDown((int) 42) && Minecraft.thePlayer.onGround && Minecraft.thePlayer.fallDistance == 0.0f && this.mc.theWorld.getBlockState(new BlockPos(Minecraft.thePlayer.posX, Minecraft.thePlayer.posY - 1.0, Minecraft.thePlayer.posZ)).getBlock() == Blocks.air ? EnumFacing.DOWN : EnumFacing.SOUTH, this.blockData);
         }
         if (!blacklistedBlocks.contains(this.mc.theWorld.getBlockState(pos.add(0, 0, 1)).getBlock())) {
-            return new BlockData(pos.add(0, 0, 1), Keyboard.isKeyDown((int)42) && Minecraft.thePlayer.onGround && Minecraft.thePlayer.fallDistance == 0.0f && this.mc.theWorld.getBlockState(new BlockPos(Minecraft.thePlayer.posX, Minecraft.thePlayer.posY - 1.0, Minecraft.thePlayer.posZ)).getBlock() == Blocks.air ? EnumFacing.DOWN : EnumFacing.NORTH, this.blockData);
+            return new BlockData(pos.add(0, 0, 1), Keyboard.isKeyDown((int) 42) && Minecraft.thePlayer.onGround && Minecraft.thePlayer.fallDistance == 0.0f && this.mc.theWorld.getBlockState(new BlockPos(Minecraft.thePlayer.posX, Minecraft.thePlayer.posY - 1.0, Minecraft.thePlayer.posZ)).getBlock() == Blocks.air ? EnumFacing.DOWN : EnumFacing.NORTH, this.blockData);
         }
         BlockPos add = pos.add(-1, 0, 0);
         if (!blacklistedBlocks.contains(this.mc.theWorld.getBlockState(add.add(-1, 0, 0)).getBlock())) {
@@ -323,16 +331,16 @@ extends Mod {
 
     public Vec3 getBlockSide(BlockPos pos, EnumFacing face) {
         if (face == EnumFacing.NORTH) {
-            return new Vec3(pos.getX(), pos.getY(), (double)pos.getZ() - 0.5);
+            return new Vec3(pos.getX(), pos.getY(), (double) pos.getZ() - 0.5);
         }
         if (face == EnumFacing.EAST) {
-            return new Vec3((double)pos.getX() + 0.5, pos.getY(), pos.getZ());
+            return new Vec3((double) pos.getX() + 0.5, pos.getY(), pos.getZ());
         }
         if (face == EnumFacing.SOUTH) {
-            return new Vec3(pos.getX(), pos.getY(), (double)pos.getZ() + 0.5);
+            return new Vec3(pos.getX(), pos.getY(), (double) pos.getZ() + 0.5);
         }
         if (face == EnumFacing.WEST) {
-            return new Vec3((double)pos.getX() - 0.5, pos.getY(), pos.getZ());
+            return new Vec3((double) pos.getX() - 0.5, pos.getY(), pos.getZ());
         }
         return new Vec3(pos.getX(), pos.getY(), pos.getZ());
     }
@@ -353,32 +361,27 @@ extends Mod {
     static {
         try {
             Scaffold.$SwitchMap$net$minecraft$util$EnumFacing[EnumFacing.UP.ordinal()] = 1;
-        }
-        catch (NoSuchFieldError noSuchFieldError) {
+        } catch (NoSuchFieldError noSuchFieldError) {
             // empty catch block
         }
         try {
             Scaffold.$SwitchMap$net$minecraft$util$EnumFacing[EnumFacing.SOUTH.ordinal()] = 2;
-        }
-        catch (NoSuchFieldError noSuchFieldError) {
+        } catch (NoSuchFieldError noSuchFieldError) {
             // empty catch block
         }
         try {
             Scaffold.$SwitchMap$net$minecraft$util$EnumFacing[EnumFacing.NORTH.ordinal()] = 3;
-        }
-        catch (NoSuchFieldError noSuchFieldError) {
+        } catch (NoSuchFieldError noSuchFieldError) {
             // empty catch block
         }
         try {
             Scaffold.$SwitchMap$net$minecraft$util$EnumFacing[EnumFacing.EAST.ordinal()] = 4;
-        }
-        catch (NoSuchFieldError noSuchFieldError) {
+        } catch (NoSuchFieldError noSuchFieldError) {
             // empty catch block
         }
         try {
             Scaffold.$SwitchMap$net$minecraft$util$EnumFacing[EnumFacing.WEST.ordinal()] = 5;
-        }
-        catch (NoSuchFieldError noSuchFieldError) {
+        } catch (NoSuchFieldError noSuchFieldError) {
             // empty catch block
         }
     }
@@ -387,7 +390,7 @@ extends Mod {
         private long prevMS = 0L;
 
         public boolean delay(float milliSec) {
-            return (float)(this.getTime() - this.prevMS) >= milliSec;
+            return (float) (this.getTime() - this.prevMS) >= milliSec;
         }
 
         public void reset() {

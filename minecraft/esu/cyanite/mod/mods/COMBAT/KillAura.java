@@ -283,6 +283,8 @@ public class KillAura extends Mod
                 }
                 eventMotion.yaw = array[0];
                 eventMotion.pitch = array[1];
+
+                Client.setRotation(array[0], array[1]);
             }
             this.lastRotations = new float[] { eventMotion.yaw, eventMotion.pitch };
         }else {

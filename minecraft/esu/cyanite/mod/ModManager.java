@@ -65,7 +65,7 @@ public class ModManager {
         modList.add(new AutoGGBan());
         modList.add(new FastPlace());
         modList.add(new MurderFinder());
-
+        modList.add(new RotationAnimation());
     }
 
     public static ArrayList getEnabledModListHUD() {
