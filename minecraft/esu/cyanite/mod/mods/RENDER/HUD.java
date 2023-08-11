@@ -108,8 +108,8 @@ public class HUD extends Mod
         }
         final float n = (float)class112.res.getScaledWidth();
         final float n2 = (float)class112.res.getScaledHeight();
-        Client.instance.fontMgr.tahoma50.drawString(Client.CLIENT_NAME, 2.0f, -4.0f, Notification.reAlpha(Colors.WHITE.c, 0.75f));
-        Client.instance.fontMgr.tahoma20.drawString("v" + Client.CLIENT_VERSION, 4.0f, 22.0f, Notification.reAlpha(Colors.WHITE.c, 0.75f));
+        Client.instance.fontMgr.tahoma50.drawString(Client.CLIENT_NAME, 6.0f, 0.0f, Notification.reAlpha(Colors.WHITE.c, 0.75f));
+        Client.instance.fontMgr.tahoma20.drawString("v" + Client.CLIENT_VERSION, 10.0f, 30.0f, Notification.reAlpha(Colors.WHITE.c, 0.75f));
         this.renderArray(Client.instance.fontMgr.tahoma18, class112.res);
         if (this.mc.thePlayer.getHealth() <= 6.0f) {
             final float animationY = this.animationY;

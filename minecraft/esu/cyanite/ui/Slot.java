@@ -32,14 +32,14 @@ public class Slot {
 
     public void draw(final int p_draw_1_, final int p_draw_2_, final float p_draw_3_, final float p_draw_4_) {
 
-        if (this.alpha < 0.12f) {
-            this.alpha = 0.12f;
+        if (this.alpha < 0.1f) {
+            this.alpha = 0.1f;
         }
 
         if (this.ishovered) {
-            this.alpha = RenderUtil.toanim(this.alpha, 0.9f, 16, 0.0001f);
+            this.alpha = RenderUtil.toanim(this.alpha, 0.9f, 16, 0.01f);
         } else {
-            this.alpha = RenderUtil.toanim(this.alpha, 0, 16, 0.0001f);
+            this.alpha = RenderUtil.toanim(this.alpha, 0.1f, 16, 0.01f);
         }
 
         Client.instance.fontMgr.icon80.drawString("g", p_draw_3_, p_draw_4_ - this.alpha * 2, Notification.reAlpha(14400839, this.alpha));

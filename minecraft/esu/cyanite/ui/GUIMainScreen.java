@@ -42,7 +42,7 @@ public class GUIMainScreen extends GuiScreen
         this.slots.clear();
         this.slots.add(new Slot("SinglePlayer", "h", new GuiSelectWorld(this)));
         this.slots.add(new Slot("MultiPlayer", "i", new GuiMultiplayer(this)));
-        this.slots.add(new Slot("AltManager", "j", new GuiAltLogin(this)));
+        this.slots.add(new Slot("AltManager", "j", new ReSetSessionUI()));
         this.slots.add(new Slot("Options", "k", new GuiOptions(this, this.mc.gameSettings)));
         this.slots.add(new Slot("QuitGame", "l", null));
         super.initGui();
@@ -53,8 +53,8 @@ public class GUIMainScreen extends GuiScreen
         final float n2 = (float)this.sr.getScaledWidth();
         final float n3 = (float)this.sr.getScaledHeight();
 
-        int imagex = 1564;
-        int imagey = 883;
+        int imagex = 3128;
+        int imagey = 1766;
 
         int x1 = RenderUtil.width() * imagey <= RenderUtil.height() * imagex ? (RenderUtil.width() - (imagex * RenderUtil.height() / imagey)) / 2 : 0;
         int twidth = RenderUtil.width() * imagey <= RenderUtil.height() * imagex ? imagex * RenderUtil.height() / imagey : RenderUtil.width();
@@ -64,7 +64,7 @@ public class GUIMainScreen extends GuiScreen
 
         RenderUtil.drawImage(new ResourceLocation("client/mainmenu_back_blur.png"), x1, y1, twidth, theight);
 
-        Client.instance.fontMgr.tahoma16.drawString("Version " + Client.CLIENT_VERSION + " Reborn by drqzszn", 8.0f, n3 - 25.0f, Notification.reAlpha(Colors.WHITE.c, 0.6f));
+        Client.instance.fontMgr.tahoma16.drawString("Version " + Client.CLIENT_VERSION + " Reborn by drqzszn & UknownPerson", 8.0f, n3 - 25.0f, Notification.reAlpha(Colors.WHITE.c, 0.6f));
         Client.instance.fontMgr.tahoma70.drawCenteredString(Client.CLIENT_NAME, n2 / 2.0f, n3 / 2.0f - 60.0f, Notification.reAlpha(Colors.WHITE.c, 0.6f));
 
         float p_draw_3_ = n2 / 2.0f - this.slots.size() * 40;
