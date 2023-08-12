@@ -151,11 +151,27 @@ public class CGUI extends GuiScreen {
             int dwheel = Mouse.getDWheel();
 
             if (dwheel < 0) {
-                temp -= 16;
+                temp -= 20;
             }
             if (dwheel > 0) {
-                temp += 16;
+                temp += 20;
             }
+        }
+
+        int fff = 0;
+        for (Mod m : ModManager.getModList()) {
+            if (m.getCategory() == category) {
+                fff += 40;
+            }
+        }
+
+        fff -= 200;
+
+        if(temp > 0){
+            temp = 0;
+        }
+        if(temp < -fff){
+            temp = -fff;
         }
 
         listy += temp;
@@ -191,9 +207,12 @@ public class CGUI extends GuiScreen {
                 if (m.isEnabled()) {
                     m.setAlpha3(RenderUtil.toanim(m.getAlpha3(), 255, 8, 0.1f));
                 } else {
-                    m.setAlpha3(RenderUtil.toanim(m.getAlpha3(), 150, 8, 0.1f));
+                    m.setAlpha3(RenderUtil.toanim(m.getAlpha3(), 156, 8, 0.1f));
                 }
-                Client.instance.fontMgr.tahoma16.drawString(m.getName(), listx + 36, listy + 9, new Color((int) m.getAlpha3(), (int) m.getAlpha3(), (int) m.getAlpha3()).getRGB());
+                Client.instance.fontMgr.tahoma16.drawString(m.getName(), listx + 36, listy + 12, new Color((int) m.getAlpha3(), (int) m.getAlpha3(), (int) m.getAlpha3()).getRGB());
+                ResourceLocation l = new ResourceLocation("client/interface.png");
+                Minecraft.getMinecraft().getTextureManager().bindTexture(l);
+                RenderUtil.drawImage(l, (int) listx + 10, (int) (listy + 10), (int) (14), (int) (14), new Color((int) m.getAlpha3(), (int) m.getAlpha3(), (int) m.getAlpha3()));
 
                 if (isHovered(listx, listy, drawx1 - 5, listy + 36, mouseX, mouseY) && check == 0 && Mouse.isButtonDown(0)) {
                     check = 3;
@@ -246,6 +265,10 @@ public class CGUI extends GuiScreen {
     private void check(int mouseX, int mouseY) {
         if (!Mouse.isButtonDown(0)) {
             check = 0;
+        }
+
+        if (Mouse.isButtonDown(0) && check == 0) {
+            check = -1;
         }
 
         if (check == 1) {
