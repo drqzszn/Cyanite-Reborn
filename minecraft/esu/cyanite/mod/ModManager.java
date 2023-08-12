@@ -62,7 +62,7 @@ public class ModManager {
         modList.add(new ViewClip());
         
         modList.add(new AntiObsidian());
-        modList.add(new AutoGGBan());
+        modList.add(new AutoHypixel());
         modList.add(new FastPlace());
         modList.add(new MurderFinder());
         modList.add(new RotationAnimation());

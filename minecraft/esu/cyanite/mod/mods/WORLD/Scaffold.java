@@ -445,4 +445,3 @@ public class Scaffold extends Mod {
     }
 
 }
-

@@ -339,6 +339,12 @@ public class PlayerUtil {
         Minecraft.getMinecraft();
         Minecraft.thePlayer.addChatMessage(new ChatComponentText(string));
     }
+    public static Block blockRelativeToPlayer(final double offsetX, final double offsetY, final double offsetZ) {
+        return mc.theWorld.getBlockState(new BlockPos(mc.thePlayer).add(offsetX, offsetY, offsetZ)).getBlock();
+    }
+    public static boolean inLiquid() {
+        return mc.thePlayer.isInWater() || mc.thePlayer.isInLava();
+    }
 
     public static void tellDebugPlayer(String string) {
         PlayerUtil.tellPlayer("\u00a7d[Cyanite]\u00a7f " + string);
