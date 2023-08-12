@@ -21,7 +21,7 @@ import java.io.IOException;
 
 public class CGUI extends GuiScreen {
     public static float x, y;
-    public static float width = 400, height = 220;
+    public static float width = 356, height = 220;
     int check = 0;
     int keydownX, keydownY;
     float alpha;
