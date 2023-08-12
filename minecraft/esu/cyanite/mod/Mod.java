@@ -16,6 +16,44 @@ public class Mod {
     private boolean isEnabled;
     public float hoverOpacity;
     public int valueSize;
+    public float alpha1;
+    public float alpha3;
+
+    public float getAlpha3() {
+        return alpha3;
+    }
+
+    public void setAlpha3(float alpha3) {
+        this.alpha3 = alpha3;
+    }
+
+    public float getAlpha1() {
+        return alpha1;
+    }
+
+    public void setAlpha1(float alpha1) {
+        this.alpha1 = alpha1;
+    }
+
+    public float getAlpha2() {
+        return alpha2;
+    }
+
+    public void setAlpha2(float alpha2) {
+        this.alpha2 = alpha2;
+    }
+
+    public float alpha2;
+
+    public float getAnimy() {
+        return animy;
+    }
+
+    public void setAnimy(float animy) {
+        this.animy = animy;
+    }
+
+    private float animy =0;
 
     public Mod(String name, String renderName, Category category) {
         this.name = name;
@@ -79,8 +117,7 @@ public class Mod {
             } else {
                 this.set(true);
             }
-        }
-        catch (Exception var2) {
+        } catch (Exception var2) {
             var2.printStackTrace();
         }
     }

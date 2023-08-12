@@ -34,6 +34,7 @@ public class UIMenuMods
     private int valueYAdd;
     private float scrollY;
     private float scrollAmount;
+    public static Mod fuck;
     
     public UIMenuMods(Category c, MouseInputHandler handler) {
         super();
@@ -107,6 +108,12 @@ public class UIMenuMods
             if (b2 && this.rightCrink.canExcecute() && !Client.instance.crink.menu.settingMode && Client.instance.crink.menu.currentMod == null && currentMod.hasValues()) {
                 Client.instance.crink.menu.settingMode = true;
                 Client.instance.crink.menu.currentMod = currentMod;
+            }
+
+            if(fuck != null){
+                Client.instance.crink.menu.settingMode = true;
+                Client.instance.crink.menu.currentMod = fuck;
+                fuck = null;
             }
             RenderUtil.drawRect((float)this.x, (float)n2, (float)(this.x + this.width), (float)(n2 + n3), Notification.reAlpha(Colors.BLACK.c, currentMod.hoverOpacity));
             if (currentMod.isEnabled()) {

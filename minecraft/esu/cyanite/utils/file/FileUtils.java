@@ -118,7 +118,11 @@ public class FileUtils {
                 boolean state = Boolean.parseBoolean(split[1]);
                 if (m == null) continue;
                 try {
-                    m.set(state, false);
+                    if(ModManager.getModByName("ClickGui") == m){
+                        m.set(false, false);
+                    }else{
+                        m.set(state, false);
+                    }
                 }
                 catch (Exception var8) {
                     var8.printStackTrace();

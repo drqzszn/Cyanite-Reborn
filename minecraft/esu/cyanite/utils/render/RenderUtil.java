@@ -39,6 +39,24 @@ public enum RenderUtil {
     private RenderUtil() {
     }
 
+    public static void doGlScissor(float x, float y, float x1, float y1) {
+        float width = x1 - x;
+        float height = y1 - y;
+        Minecraft mc = Minecraft.getMinecraft();
+        ScaledResolution scale = new ScaledResolution(mc);
+        int scaleFactor = 1;
+        int k = mc.gameSettings.guiScale;
+        if (k == 0) {
+            k = 1000;
+        }
+        while (scaleFactor < k && mc.displayWidth / (scaleFactor + 1) >= 320 && mc.displayHeight / (scaleFactor + 1) >= 240) {
+            ++scaleFactor;
+        }
+        GL11.glScalef((float)0.5f, (float)0.5f, (float)0.5f);
+        GL11.glScissor((int)(x * scaleFactor), (int)(mc.displayHeight - (y + height) * scaleFactor), (int)(width * scaleFactor), (int)(height * scaleFactor));
+        GL11.glScalef((float)2.0f, (float)2.0f, (float)2.0f);
+    }
+
     public static int width() {
         return new ScaledResolution(Minecraft.getMinecraft()).getScaledWidth();
     }
@@ -911,6 +929,37 @@ public enum RenderUtil {
         GL11.glHint(3154, 4352);
         GL11.glHint(3155, 4352);
     }
+
+    public static void drawRoundRect1(float x1, float y1, float x2, float y2, int roundsize, Color color) {
+
+
+        float x1t = x1 + roundsize;
+        float y1t = y1 + roundsize;
+        float x2t = x2 - roundsize;
+        float y2t = y2 - roundsize;
+        if (x1 != x2 && y1 != y2) {
+            drawRect(x1t, y1t, x2t, y2t, color.getRGB());
+            drawRect(x1t, y1, x2t, y1t, color.getRGB());
+            drawRect(x2t, y1t, x2, y2t, color.getRGB());
+            drawRect(x1t, y2t, x2t, y2, color.getRGB());
+            drawRect(x1, y1t, x1t, y2t, color.getRGB());
+            ResourceLocation lu = new ResourceLocation("client/circle_leftup.png");
+            Minecraft.getMinecraft().getTextureManager().bindTexture(lu);
+            drawImage(lu, x1, y1, roundsize, roundsize, color);
+
+            ResourceLocation ld = new ResourceLocation("client/circle_leftdown.png");
+            Minecraft.getMinecraft().getTextureManager().bindTexture(ld);
+            drawImage(ld, x1, y2-roundsize, roundsize, roundsize, color);
+
+            ResourceLocation ru = new ResourceLocation("client/circle_rightup.png");
+            Minecraft.getMinecraft().getTextureManager().bindTexture(ru);
+            drawImage(ru, x2-roundsize, y1, roundsize, roundsize, color);
+
+            ResourceLocation rd = new ResourceLocation("client/circle_rightdown.png");
+            Minecraft.getMinecraft().getTextureManager().bindTexture(rd);
+            drawImage(rd, x2-roundsize, y2-roundsize, roundsize, roundsize, color);
+        }
+    }
 //    public static void drawRoundedRect(float x, float y, float x2, float y2, float round, int color) {
 //        x = (float)((double)x + ((double)(round / 2.0f) + 0.5));
 //        y = (float)((double)y + ((double)(round / 2.0f) + 0.5));
@@ -926,6 +975,20 @@ public enum RenderUtil {
 //        Gui.drawRect(x + round / 2.0f, y - round / 2.0f - 0.5f, x2 - round / 2.0f, y2 - round / 2.0f, color);
 //        Gui.drawRect(x + round / 2.0f, y, x2 - round / 2.0f, y2 + round / 2.0f + 0.5f, color);
 //    }
+
+    public static void drawImage(ResourceLocation image, float x, float y, float width, float height, Color color) {
+        ScaledResolution scaledResolution = new ScaledResolution(Minecraft.getMinecraft());
+        GL11.glDisable((int) 2929);
+        GL11.glEnable((int) 3042);
+        GL11.glDepthMask((boolean) false);
+        OpenGlHelper.glBlendFunc((int) 770, (int) 771, (int) 1, (int) 0);
+        GL11.glColor4f((float) ((float) color.getRed() / 255.0f), (float) ((float) color.getGreen() / 255.0f), (float) ((float) color.getBlue() / 255.0f), ((float) color.getAlpha() / 255.0f));
+        Minecraft.getMinecraft().getTextureManager().bindTexture(image);
+        Gui.drawModalRectWithCustomSizedTexture((int) x, (int) y, (float) 0.0f, (float) 0.0f, (int) width, (int) height, (float) width, (float) height);
+        GL11.glDepthMask((boolean) true);
+        GL11.glDisable((int) 3042);
+        GL11.glEnable((int) 2929);
+    }
 
     public static void drawRoundedRect2(float var0, float var1, float var2, float var3, int var4, int var5) {
         RenderUtil.enableGL2D();
