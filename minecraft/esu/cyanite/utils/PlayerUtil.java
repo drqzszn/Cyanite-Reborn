@@ -341,7 +341,7 @@ public class PlayerUtil {
     }
 
     public static void tellDebugPlayer(String string) {
-        PlayerUtil.tellPlayer("\u00a7d[Debug]\u00a7f " + string);
+        PlayerUtil.tellPlayer("\u00a7d[Cyanite]\u00a7f " + string);
     }
 }
 

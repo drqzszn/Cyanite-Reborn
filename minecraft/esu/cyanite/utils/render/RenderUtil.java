@@ -1296,5 +1296,40 @@ public enum RenderUtil {
         GL11.glHint(3154, 4352);
         GL11.glHint(3155, 4352);
     }
+    public static void drawGradientSideways(double left, double top, double right, double bottom, int col1, int col2) {
+        float f = (col1 >> 24 & 0xFF) / 255.0F;
+        float f1 = (col1 >> 16 & 0xFF) / 255.0F;
+        float f2 = (col1 >> 8 & 0xFF) / 255.0F;
+        float f3 = (col1 & 0xFF) / 255.0F;
+
+        float f4 = (col2 >> 24 & 0xFF) / 255.0F;
+        float f5 = (col2 >> 16 & 0xFF) / 255.0F;
+        float f6 = (col2 >> 8 & 0xFF) / 255.0F;
+        float f7 = (col2 & 0xFF) / 255.0F;
+
+        GL11.glEnable(3042);
+        GL11.glDisable(3553);
+        GL11.glBlendFunc(770, 771);
+        GL11.glEnable(2848);
+        GL11.glShadeModel(7425);
+
+        GL11.glPushMatrix();
+        GL11.glBegin(7);
+        GL11.glColor4f(f1, f2, f3, f);
+        GL11.glVertex2d(left, top);
+        GL11.glVertex2d(left, bottom);
+
+        GL11.glColor4f(f5, f6, f7, f4);
+        GL11.glVertex2d(right, bottom);
+        GL11.glVertex2d(right, top);
+        GL11.glEnd();
+        GL11.glPopMatrix();
+
+        GL11.glEnable(3553);
+        GL11.glDisable(3042);
+        GL11.glDisable(2848);
+        GL11.glShadeModel(7424);
+
+    }
 }
 

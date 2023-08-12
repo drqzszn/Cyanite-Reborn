@@ -168,10 +168,88 @@ extends FontRenderer {
         return (int)x;
     }
 
-    @Override
-    public int drawStringWithShadow(String text, float x, float y, int color) {
-        this.drawString(text, x + 1.0f, y + 1.0f, -16777216);
-        return this.drawString(text, x, y, color);
+
+    public int drawStringWithShadow(String text, float x, float y, int color, int alpha) {
+
+        String[] array;
+        text = "\u00a7r" + text;
+        float len = -1.0f;
+        for (String str : array = text.split("\u00a7")) {
+            if (str.length() < 1) continue;
+            switch (str.charAt(0)) {
+                case '0': {
+                    color = new Color(0, 0, 0).getRGB();
+                    break;
+                }
+                case '1': {
+                    color = new Color(0, 0, 170).getRGB();
+                    break;
+                }
+                case '2': {
+                    color = new Color(0, 170, 0).getRGB();
+                    break;
+                }
+                case '3': {
+                    color = new Color(0, 170, 170).getRGB();
+                    break;
+                }
+                case '4': {
+                    color = new Color(170, 0, 0).getRGB();
+                    break;
+                }
+                case '5': {
+                    color = new Color(170, 0, 170).getRGB();
+                    break;
+                }
+                case '6': {
+                    color = new Color(255, 170, 0).getRGB();
+                    break;
+                }
+                case '7': {
+                    color = new Color(170, 170, 170).getRGB();
+                    break;
+                }
+                case '8': {
+                    color = new Color(85, 85, 85).getRGB();
+                    break;
+                }
+                case '9': {
+                    color = new Color(85, 85, 255).getRGB();
+                    break;
+                }
+                case 'a': {
+                    color = new Color(85, 255, 85).getRGB();
+                    break;
+                }
+                case 'b': {
+                    color = new Color(85, 255, 255).getRGB();
+                    break;
+                }
+                case 'c': {
+                    color = new Color(255, 85, 85).getRGB();
+                    break;
+                }
+                case 'd': {
+                    color = new Color(255, 85, 255).getRGB();
+                    break;
+                }
+                case 'e': {
+                    color = new Color(255, 255, 85).getRGB();
+                    break;
+                }
+                case 'f': {
+                    color = new Color(255, 255, 255).getRGB();
+                    break;
+                }
+            }
+            Color col = new Color(color);
+            str = str.substring(1, str.length());
+            int Shadowcolor = (color & 16579836) >> 2 | color & -16777216;
+            this.drawString(str, x + len + 0.5f, y + 0.5f, this.getColor(0, 0, 0, 80));
+            this.drawString(str, x + len, y, this.getColor(col.getRed(), col.getGreen(), col.getBlue(), alpha));
+            len += (float) (this.getStringWidth(str) + 1);
+        }
+        return (int) len;
     }
 
     @Override
