@@ -26,8 +26,8 @@ public class CGUI extends GuiScreen {
     float alpha;
     float[] calpha = new float[5];
     static Category category = Category.COMBAT;
-    static float categoryanimy = 0;
-    static float lastcategoryanimy = 0;
+    static float categoryanimy = 64;
+    static float lastcategoryanimy = 64;
     static float[] fuckalpha = new float[5];
     float esualpha;
     float temp;
@@ -114,6 +114,16 @@ public class CGUI extends GuiScreen {
                 ResourceLocation logo = new ResourceLocation("client/logo.png");
                 Minecraft.getMinecraft().getTextureManager().bindTexture(logo);
                 RenderUtil.drawImage(logo, (int) (drawx + 10), (int) (drawy + 16), (int) (82), (int) (32));
+            }
+            i++;
+            cdrawy += 24;
+        }
+
+        i = 0;
+        cdrawy = drawy + 64;
+        cdrawx = drawx + 6;
+        for (Category c : Category.values()) {
+            if (c == category) {
                 fuckalpha[i] = RenderUtil.toanim(fuckalpha[i], 255, 16, 0.1f);
             } else {
                 fuckalpha[i] = RenderUtil.toanim(fuckalpha[i], 173, 16, 0.1f);
@@ -123,7 +133,6 @@ public class CGUI extends GuiScreen {
             Minecraft.getMinecraft().getTextureManager().bindTexture(l);
             RenderUtil.drawImage(l, (int) cdrawx + 11, (int) (cdrawy + 4), (int) (12), (int) (12), new Color((int) fuckalpha[i], (int) fuckalpha[i], (int) fuckalpha[i]));
             Client.instance.fontMgr.tahoma16.drawString(c.name(), cdrawx + 30, cdrawy + 5, new Color((int) fuckalpha[i], (int) fuckalpha[i], (int) fuckalpha[i]).getRGB());
-
             i++;
             cdrawy += 24;
         }
