@@ -22,7 +22,7 @@ import java.io.IOException;
 public class CGUI extends GuiScreen {
     public static float x, y;
     public static float width = 356, height = 220;
-    int check = 0;
+    int check = 0; // 1 2 3 4 5
     int keydownX, keydownY;
     float alpha;
     float[] calpha = new float[5];
@@ -32,6 +32,8 @@ public class CGUI extends GuiScreen {
     static float[] fuckalpha = new float[5];
     float esualpha;
     float temp;
+    float temp1;
+    float tempfff;
     public static ClickMenu menu;
 
     @Override
@@ -47,7 +49,7 @@ public class CGUI extends GuiScreen {
 
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
-        if(!ModManager.getModByName("ClickGui").isEnabled()){
+        if (!ModManager.getModByName("ClickGui").isEnabled()) {
             this.mc.displayGuiScreen(null);
         }
 
@@ -91,6 +93,7 @@ public class CGUI extends GuiScreen {
                 if (c != category) {
                     esualpha = 2550;
                     temp = 0;
+                    temp1 = 0;
                 }
                 lastcategoryanimy = cdrawy - drawy;
                 category = c;
@@ -151,10 +154,10 @@ public class CGUI extends GuiScreen {
             int dwheel = Mouse.getDWheel();
 
             if (dwheel < 0) {
-                temp -= 20;
+                temp = temp1 - 32;
             }
             if (dwheel > 0) {
-                temp += 20;
+                temp = temp1 + 32;
             }
         }
 
@@ -167,14 +170,23 @@ public class CGUI extends GuiScreen {
 
         fff -= 200;
 
-        if(temp > 0){
+        if (temp > 0) {
             temp = 0;
         }
-        if(temp < -fff){
+        if (temp < -fff) {
             temp = -fff;
         }
 
-        listy += temp;
+        temp1 = RenderUtil.toanim(temp1, temp, 8, 0.1f);
+        listy += temp1;
+
+        RenderUtil.drawRoundRect1(drawx1 - 4, (temp1 / -fff) * (210 - ((200f/(fff + 200)) * 210)) + drawy + 5, drawx1 - 1, (temp1 / -fff) * (210 - ((200f/(fff + 200)) * 210)) + drawy + 5 + (200f/(fff + 200)) * 210, 1, new Color(255, 255, 255,128));
+
+        if(isHovered(drawx1 - 4, (temp1 / -fff) * (210 - ((200f/(fff + 200)) * 210)) + drawy + 5, drawx1 - 1, (temp1 / -fff) * (210 - ((200f/(fff + 200)) * 210)) + drawy + 5 + (200f/(fff + 200)) * 210,mouseX,mouseY) && check == 0 && Mouse.isButtonDown(0)){
+            check = 5;
+            keydownY = (int) (mouseY - ((temp1 / -fff) * (210 - ((200f/(fff + 200)) * 210)) + drawy + 5));
+            tempfff = fff;
+        }
 
         GL11.glEnable(GL11.GL_SCISSOR_TEST);
         RenderUtil.doGlScissor(listx - 5, drawy + 5, drawx1, drawy1 - 5);
@@ -184,7 +196,7 @@ public class CGUI extends GuiScreen {
                 if (m.getAlpha1() == 0) {
                     m.setAlpha1(66);
                 }
-                if (isHovered(listx, listy, drawx1 - 5, listy + 36, mouseX, mouseY) && isHovered(listx - 5, drawy + 5, drawx1, drawy1 - 5,mouseX,mouseY)) {
+                if (isHovered(listx, listy, drawx1 - 5, listy + 36, mouseX, mouseY) && isHovered(listx - 5, drawy + 5, drawx1, drawy1 - 5, mouseX, mouseY)) {
                     m.setAlpha1(RenderUtil.toanim(m.getAlpha1(), 165, 16, 0.1f));
                 } else {
                     m.setAlpha1(RenderUtil.toanim(m.getAlpha1(), 66, 16, 0.1f));
@@ -214,7 +226,7 @@ public class CGUI extends GuiScreen {
                 Minecraft.getMinecraft().getTextureManager().bindTexture(l);
                 RenderUtil.drawImage(l, (int) listx + 10, (int) (listy + 10), (int) (14), (int) (14), new Color((int) m.getAlpha3(), (int) m.getAlpha3(), (int) m.getAlpha3()));
 
-                if(isHovered(listx - 5, drawy + 5, drawx1, drawy1 - 5,mouseX,mouseY)){
+                if (isHovered(listx - 5, drawy + 5, drawx1, drawy1 - 5, mouseX, mouseY)) {
                     if (isHovered(listx, listy, drawx1 - 5, listy + 36, mouseX, mouseY) && check == 0 && Mouse.isButtonDown(0)) {
                         check = 3;
                         m.set(!m.isEnabled());
@@ -233,7 +245,7 @@ public class CGUI extends GuiScreen {
         }
         GL11.glDisable(GL11.GL_SCISSOR_TEST);
 
-        menu.draw(mouseX,mouseY);
+        menu.draw(mouseX, mouseY);
 
         GlStateManager.pushMatrix();
         RenderHelper.enableGUIStandardItemLighting();
@@ -277,6 +289,17 @@ public class CGUI extends GuiScreen {
             x = mouseX - keydownX;
             y = mouseY - keydownY;
         }
+
+        if(check == 5){
+            temp = (mouseY - keydownY - y - 5)/(210 - ((200f/(tempfff + 200)) * 210))* (-tempfff);
+            if (temp > 0) {
+                temp = 0;
+            }
+            if (temp < -tempfff) {
+                temp = -tempfff;
+            }
+            temp1 = temp;
+        }
     }
 
     @Override
@@ -285,7 +308,7 @@ public class CGUI extends GuiScreen {
     }
 
     public static boolean isHovered(float x, float y, float x2, float y2, int mouseX, int mouseY) {
-        if(menu.settingMode){
+        if (menu.settingMode) {
             return false;
         }
         return mouseX >= x && mouseX <= x2 && mouseY >= y && mouseY <= y2;

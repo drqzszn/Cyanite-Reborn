@@ -932,6 +932,10 @@ public enum RenderUtil {
 
     public static void drawRoundRect1(float x1, float y1, float x2, float y2, int roundsize, Color color) {
 
+        x1 = (int)x1;
+        y1 = (int)y1;
+        x2 = (int)x2;
+        y2 = (int)y2;
 
         float x1t = x1 + roundsize;
         float y1t = y1 + roundsize;
