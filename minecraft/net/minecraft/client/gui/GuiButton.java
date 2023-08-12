@@ -57,7 +57,7 @@ public class GuiButton extends Gui {
     float anim1 = 0f;
     public void drawButton(Minecraft mc, int mouseX, int mouseY) {
         if (this.visible) {
-            UnicodeFontRenderer fr = Client.instance.fontMgr.tahoma16;
+            FontRenderer fr = mc.fontRendererObj;
             GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
             this.hovered = mouseX >= this.xPosition && mouseY >= this.yPosition && mouseX < this.xPosition + this.width && mouseY < this.yPosition + this.height;
             int i = this.getHoverState(this.hovered);
@@ -91,7 +91,7 @@ public class GuiButton extends Gui {
                 j = 16777120;
             }
 
-            fr.drawStringWithShadow(this.displayString, (float)this.xPosition + ((float)this.width - fr.getStringWidth(SuperLib.removeColorCode(this.displayString)) + 2.0F) / 2.0F, (float)(this.yPosition + (this.height - 8) / 2), -1,255);
+            fr.drawStringWithShadow(this.displayString, (float)this.xPosition + ((float)this.width - fr.getStringWidth(SuperLib.removeColorCode(this.displayString)) + 2.0F) / 2.0F, (float)(this.yPosition + (this.height - 8) / 2), -1);
         }
 
     }
