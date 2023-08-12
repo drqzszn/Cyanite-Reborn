@@ -1,6 +1,7 @@
 package esu.cyanite.ui.ClickGUI.option;
 
 import esu.cyanite.ui.CGUI;
+import esu.cyanite.ui.ClickGUI.UIMenuMods;
 import esu.cyanite.ui.font.UnicodeFontRenderer;
 import esu.cyanite.utils.color.Colors;
 import esu.cyanite.utils.render.RenderUtil;
@@ -10,10 +11,10 @@ import org.lwjgl.input.Mouse;
 import esu.cyanite.Client;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.Minecraft;
+
 import java.awt.Color;
 
-public class UISlider
-{
+public class UISlider {
     Value<Double> value;
     public float x;
     public float y;
@@ -25,43 +26,49 @@ public class UISlider
     public int dragX;
     public int dragY;
     float ani;
-    
+
     public UISlider(final Value value) {
         super();
-        this.value = (Value<Double>)value;
+        this.value = (Value<Double>) value;
     }
-    
+
     public void draw(final float x, final float y) {
         this.x = x;
         this.y = y;
         final UnicodeFontRenderer tahoma20 = Client.instance.fontMgr.tahoma20;
         final double n = (this.value.getValueState() - this.value.getValueMin()) / (this.value.getValueMax() - this.value.getValueMin());
-        tahoma20.drawString(this.value.getValueName().split("_")[1], x - 198.0f, y - 2.0f, Colors.BLACK.c);
+        if (UIMenuMods.fuck) {
+            tahoma20.drawString(this.value.getValueName().split("_")[1], x - 198.0f, y - 2.0f, Colors.WHITE.c);
+        } else {
+            tahoma20.drawString(this.value.getValueName().split("_")[1], x - 198.0f, y - 2.0f, Colors.BLACK.c);
+        }
         if (this.showValue) {
-            Client.instance.fontMgr.tahoma15.drawString(this.value.getValueState() + "", x - 78.0f - tahoma20.getStringWidth(this.value.getValueState() + ""), y, Colors.GREY.c);
+            if (UIMenuMods.fuck) {
+                Client.instance.fontMgr.tahoma15.drawString(this.value.getValueState() + "", x - 78.0f - tahoma20.getStringWidth(this.value.getValueState() + ""), y, new Color(173, 173, 173).getRGB());
+            } else {
+                Client.instance.fontMgr.tahoma15.drawString(this.value.getValueState() + "", x - 78.0f - tahoma20.getStringWidth(this.value.getValueState() + ""), y, Colors.GREY.c);
+            }
         }
         if (this.ani == 0.0f) {
-            this.ani = (float)(x - 15.0f - (60.0 - 60.0 * n));
+            this.ani = (float) (x - 15.0f - (60.0 - 60.0 * n));
         }
-        this.ani = (float) RenderUtil.getAnimationState(this.ani, (float)(x - 15.0f - (60.0 - 60.0 * n)), (float)Math.max(10.0, Math.abs(this.ani - (x - 15.0f - (60.0 - 60.0 * n))) * 30.0 * 0.3));
+        this.ani = (float) RenderUtil.getAnimationState(this.ani, (float) (x - 15.0f - (60.0 - 60.0 * n)), (float) Math.max(10.0, Math.abs(this.ani - (x - 15.0f - (60.0 - 60.0 * n))) * 30.0 * 0.3));
         RenderUtil.drawRoundedRect(x - 75.0f, y + 3.0f, x - 15.0f, y + 6.0f, (int) 1.0f, new Color(Colors.GREY.c).brighter().brighter().getRGB());
         RenderUtil.drawRoundedRect(x - 75.0f, y + 3.0f, this.ani, y + 6.0f, (int) 1.0f, new Color(-14848033).brighter().getRGB());
         RenderUtil.circle(this.ani, y + 4.5f, 4.0f, new Color(-14848033).brighter().getRGB());
     }
-    
+
     public void onPress(final int tx, final int ty) {
         final ScaledResolution scaledResolution = new ScaledResolution(Minecraft.getMinecraft());
         if (this.isHovering(tx, ty, this.x - 100.0f, this.y - 3.0f, this.x - 10.0f, this.y + 10.0f)) {
             this.showValue = true;
-        }
-        else {
+        } else {
             this.showValue = false;
         }
         if (Mouse.isButtonDown(0)) {
             if (this.isHovering(tx, ty, this.x - 75.0f, this.y - 3.0f, this.x - 15.0f, this.y + 10.0f) || this.isDraging) {
                 this.isDraging = true;
-            }
-            else {
+            } else {
                 this.clickNotDraging = true;
             }
             if (this.isDraging && !this.clickNotDraging) {
@@ -76,23 +83,20 @@ public class UISlider
                 Client.instance.fileMgr.saveValues();
                 this.value.setValueState(n2);
             }
-        }
-        else {
+        } else {
             this.isDraging = false;
             this.clickNotDraging = false;
         }
         try {
             if (this.isDraging && !Client.instance.crink.menu.isDraggingSlider) {
                 Client.instance.crink.menu.isDraggingSlider = true;
-            }
-            else {
+            } else {
                 Client.instance.crink.menu.isDraggingSlider = false;
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             if (this.isDraging && !CGUI.menu.isDraggingSlider) {
                 CGUI.menu.isDraggingSlider = true;
-            }
-            else {
+            } else {
                 CGUI.menu.isDraggingSlider = false;
             }
         }
@@ -100,13 +104,12 @@ public class UISlider
         this.tX = tx;
         this.tY = ty;
     }
-    
+
     private boolean isHovering(final int n, final int n2, final double n3, final double n4, final double n5, final double n6) {
         boolean b;
         if (n > n3 && n < n5 && n2 > n4 && n2 < n6) {
             b = true;
-        }
-        else {
+        } else {
             b = false;
         }
         return b;

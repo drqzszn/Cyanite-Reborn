@@ -47,6 +47,10 @@ public class CGUI extends GuiScreen {
 
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
+        if(!ModManager.getModByName("ClickGui").isEnabled()){
+            this.mc.displayGuiScreen(null);
+        }
+
         float drawx = x;
         float drawy = y;
         float drawx1 = x + width;
@@ -251,6 +255,9 @@ public class CGUI extends GuiScreen {
     }
 
     public static boolean isHovered(float x, float y, float x2, float y2, int mouseX, int mouseY) {
+        if(menu.settingMode){
+            return false;
+        }
         return mouseX >= x && mouseX <= x2 && mouseY >= y && mouseY <= y2;
     }
 }
