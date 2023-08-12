@@ -2,6 +2,7 @@ package esu.cyanite.ui.ClickGUI.option;
 
 
 import esu.cyanite.Client;
+import esu.cyanite.ui.CGUI;
 import esu.cyanite.ui.ClickGUI.ClickMenu;
 import esu.cyanite.ui.ClickGUI.button.Button;
 import esu.cyanite.value.Value;
@@ -22,12 +23,22 @@ public class UIToggleButton extends Button{
 
    public void onPress() {
       if (this.parent != null) {
-         if (this.parent.equals(Client.instance.crink.menu.currentMod.getName())) {
-            Value var10000 = this.value;
-            var10000.setValueState(!((Boolean)var10000.getValueState()));
-            Client.instance.fileMgr.saveValues();
-            super.onPress();
+         try{
+            if (this.parent.equals(Client.instance.crink.menu.currentMod.getName())) {
+               Value var10000 = this.value;
+               var10000.setValueState(!((Boolean)var10000.getValueState()));
+               Client.instance.fileMgr.saveValues();
+               super.onPress();
+            }
+         }catch (Exception e){
+            if (this.parent.equals(CGUI.menu.currentMod.getName())) {
+               Value var10000 = this.value;
+               var10000.setValueState(!((Boolean)var10000.getValueState()));
+               Client.instance.fileMgr.saveValues();
+               super.onPress();
+            }
          }
+
       }
    }
    

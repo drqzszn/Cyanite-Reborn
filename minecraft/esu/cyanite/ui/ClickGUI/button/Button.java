@@ -50,12 +50,7 @@ public class Button
     
     public void toggle() {
         boolean state;
-        if (!this.state) {
-            state = true;
-        }
-        else {
-            state = false;
-        }
+        state = !this.state;
         this.state = state;
     }
     

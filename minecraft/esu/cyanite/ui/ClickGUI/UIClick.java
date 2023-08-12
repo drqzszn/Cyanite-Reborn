@@ -31,8 +31,9 @@ public class UIClick extends GuiScreen
         }
         this.menu.draw(n, n2);
     }
-    
-    protected void mouseClicked(final int n, final int n2, final int n3) throws IOException {
+
+    @Override
+    public void mouseClicked(final int n, final int n2, final int n3) throws IOException {
         this.menu.mouseClick(n, n2);
     }
     

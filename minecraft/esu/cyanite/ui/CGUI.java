@@ -254,6 +254,11 @@ public class CGUI extends GuiScreen {
         }
     }
 
+    @Override
+    protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
+        menu.mouseClick(mouseX, mouseY);
+    }
+
     public static boolean isHovered(float x, float y, float x2, float y2, int mouseX, int mouseY) {
         if(menu.settingMode){
             return false;
