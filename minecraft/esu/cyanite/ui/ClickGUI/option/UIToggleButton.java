@@ -31,12 +31,17 @@ public class UIToggleButton extends Button{
                super.onPress();
             }
          }catch (Exception e){
-            if (this.parent.equals(CGUI.menu.currentMod.getName())) {
-               Value var10000 = this.value;
-               var10000.setValueState(!((Boolean)var10000.getValueState()));
-               Client.instance.fileMgr.saveValues();
-               super.onPress();
+            try{
+               if (this.parent.equals(CGUI.menu.currentMod.getName())) {
+                  Value var10000 = this.value;
+                  var10000.setValueState(!((Boolean)var10000.getValueState()));
+                  Client.instance.fileMgr.saveValues();
+                  super.onPress();
+               }
+            }catch (Exception e1){
+               e1.printStackTrace();
             }
+
          }
 
       }
