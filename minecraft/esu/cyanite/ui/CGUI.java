@@ -4,6 +4,7 @@ import esu.cyanite.Client;
 import esu.cyanite.mod.Category;
 import esu.cyanite.mod.Mod;
 import esu.cyanite.mod.ModManager;
+import esu.cyanite.ui.ClickGUI.ClickMenu;
 import esu.cyanite.ui.ClickGUI.UIMenuMods;
 import esu.cyanite.utils.render.RenderUtil;
 import net.minecraft.client.Minecraft;
@@ -31,10 +32,12 @@ public class CGUI extends GuiScreen {
     static float[] fuckalpha = new float[5];
     float esualpha;
     float temp;
+    public static ClickMenu menu;
 
     @Override
     public void initGui() {
         super.initGui();
+        menu = new ClickMenu();
     }
 
     @Override
@@ -195,15 +198,17 @@ public class CGUI extends GuiScreen {
 
                 if (isHovered(listx, listy, drawx1 - 5, listy + 36, mouseX, mouseY) && check == 0 && Mouse.isButtonDown(1)) {
                     check = 4;
-                    UIMenuMods.fuck = m;
-                    Minecraft.getMinecraft().displayGuiScreen(Client.instance.crink);
+                    menu.currentMod = m;
+                    menu.settingMode = true;
+                    UIMenuMods.fuck = true;
+                    //Minecraft.getMinecraft().displayGuiScreen(Client.instance.crink);
                 }
-
                 listy += 40;
             }
         }
-
         GL11.glDisable(GL11.GL_SCISSOR_TEST);
+
+        menu.draw(mouseX,mouseY);
 
         GlStateManager.pushMatrix();
         RenderHelper.enableGUIStandardItemLighting();

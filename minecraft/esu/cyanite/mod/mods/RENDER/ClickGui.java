@@ -5,14 +5,21 @@ import esu.cyanite.mod.Category;
 import esu.cyanite.mod.Mod;
 import esu.cyanite.ui.CGUI;
 import esu.cyanite.ui.ClickGUI.UIClick;
+import esu.cyanite.ui.ClickGUI.UIMenuMods;
+import esu.cyanite.value.Value;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
 
 public class ClickGui extends Mod {
 
+    public Value<String> mode;
+
     public ClickGui() {
         super("ClickGui", "Click Gui", Category.RENDER);
         this.setKey(54);
+        this.mode = new Value<String>("ClickGui", "Mode", 0);
+        this.mode.addValue("FPSMaster");
+        this.mode.addValue("Debug");
     }
 
     @Override
@@ -41,7 +48,14 @@ public class ClickGui extends Mod {
         RenderHelper.disableStandardItemLighting();
         GlStateManager.popMatrix();
 
-        mc.displayGuiScreen(new CGUI());
+        if(this.mode.isCurrentMode("Debug")){
+            UIMenuMods.fuck = false;
+            this.mc.displayGuiScreen(Client.instance.crink);
+            this.set(false);
+        }else{
+            UIMenuMods.fuck = true;
+            mc.displayGuiScreen(new CGUI());
+        }
 
      /*
 	if (this.mc.currentScreen instanceof UIClick) {

@@ -215,6 +215,9 @@ public class ClickMenu
     }
     
     private void addCategorys() {
+        if(UIMenuMods.fuck){
+            return;
+        }
         TAB_HEIGHT = 25;
         WIDTH = 85;
         int n = 10;

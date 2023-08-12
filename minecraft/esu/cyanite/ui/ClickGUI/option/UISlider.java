@@ -1,5 +1,6 @@
 package esu.cyanite.ui.ClickGUI.option;
 
+import esu.cyanite.ui.CGUI;
 import esu.cyanite.ui.font.UnicodeFontRenderer;
 import esu.cyanite.utils.color.Colors;
 import esu.cyanite.utils.render.RenderUtil;
@@ -80,12 +81,22 @@ public class UISlider
             this.isDraging = false;
             this.clickNotDraging = false;
         }
-        if (this.isDraging && !Client.instance.crink.menu.isDraggingSlider) {
-            Client.instance.crink.menu.isDraggingSlider = true;
+        try {
+            if (this.isDraging && !Client.instance.crink.menu.isDraggingSlider) {
+                Client.instance.crink.menu.isDraggingSlider = true;
+            }
+            else {
+                Client.instance.crink.menu.isDraggingSlider = false;
+            }
+        }catch (Exception e){
+            if (this.isDraging && !CGUI.menu.isDraggingSlider) {
+                CGUI.menu.isDraggingSlider = true;
+            }
+            else {
+                CGUI.menu.isDraggingSlider = false;
+            }
         }
-        else {
-            Client.instance.crink.menu.isDraggingSlider = false;
-        }
+
         this.tX = tx;
         this.tY = ty;
     }

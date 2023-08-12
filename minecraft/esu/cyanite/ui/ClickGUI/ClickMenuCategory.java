@@ -1,6 +1,7 @@
 package esu.cyanite.ui.ClickGUI;
 
 import esu.cyanite.mod.Category;
+import esu.cyanite.ui.CGUI;
 import esu.cyanite.ui.Notification;
 import esu.cyanite.utils.color.Colors;
 import esu.cyanite.utils.handler.MouseInputHandler;
@@ -57,11 +58,20 @@ public class ClickMenuCategory
         if (this.uiMenuMods.open) {
             Minecraft.getMinecraft().ingameGUI.drawGradientRect(this.x, this.y + this.tab_height - 2, this.x + this.width, this.y + this.tab_height + 3, Notification.reAlpha(Colors.BLACK.c, 0.3f), 0);
         }
-        if (Client.instance.crink.menu.settingMode && Client.instance.crink.menu.currentMod != null) {
+        try{
+            if (Client.instance.crink.menu.settingMode && Client.instance.crink.menu.currentMod != null) {
+            }
+            else {
+                this.move(p_draw_1_, p_draw_2_);
+            }
+        }catch (Exception e){
+            if (CGUI.menu.settingMode && CGUI.menu.currentMod != null) {
+            }
+            else {
+                this.move(p_draw_1_, p_draw_2_);
+            }
         }
-        else {
-            this.move(p_draw_1_, p_draw_2_);
-        }
+
     }
     
     private void move(int n, int n2) {

@@ -3,6 +3,7 @@ package esu.cyanite.ui.ClickGUI;
 import esu.cyanite.mod.Category;
 import esu.cyanite.mod.Mod;
 import esu.cyanite.mod.ModManager;
+import esu.cyanite.ui.CGUI;
 import esu.cyanite.ui.Notification;
 import esu.cyanite.utils.color.Colors;
 import esu.cyanite.utils.handler.MouseInputHandler;
@@ -34,7 +35,7 @@ public class UIMenuMods
     private int valueYAdd;
     private float scrollY;
     private float scrollAmount;
-    public static Mod fuck;
+    public static boolean fuck;
     
     public UIMenuMods(Category c, MouseInputHandler handler) {
         super();
@@ -48,6 +49,9 @@ public class UIMenuMods
     }
     
     public void draw(int p_draw_1_, int p_draw_2_) {
+        if(fuck){
+            return;
+        }
         this.opened = true;
         int n = 160;
         if (p_draw_2_ > this.y + n) {
@@ -80,41 +84,73 @@ public class UIMenuMods
                 b = false;
             }
             boolean b2 = b;
-            if (!Client.instance.crink.menu.settingMode) {
-                Mod mod = currentMod;
-                float hoverOpacity;
-                if (b2) {
-                    hoverOpacity = (float) RenderUtil.getAnimationState(currentMod.hoverOpacity, 0.25f, 1.0f);
+
+            try {
+                if (!Client.instance.crink.menu.settingMode) {
+                    Mod mod = currentMod;
+                    float hoverOpacity;
+                    if (b2) {
+                        hoverOpacity = (float) RenderUtil.getAnimationState(currentMod.hoverOpacity, 0.25f, 1.0f);
+                    }
+                    else {
+                        hoverOpacity = (float) RenderUtil.getAnimationState(currentMod.hoverOpacity, 0.0f, 1.5f);
+                    }
+                    mod.hoverOpacity = hoverOpacity;
                 }
                 else {
-                    hoverOpacity = (float) RenderUtil.getAnimationState(currentMod.hoverOpacity, 0.0f, 1.5f);
+                    currentMod.hoverOpacity = 0.0f;
                 }
-                mod.hoverOpacity = hoverOpacity;
-            }
-            else {
-                currentMod.hoverOpacity = 0.0f;
-            }
-            if (b2 && !Client.instance.crink.menu.settingMode && this.handler.canExcecute()) {
-                Mod mod2 = currentMod;
-                boolean b3;
-                if (!currentMod.isEnabled()) {
-                    b3 = true;
+            }catch (Exception e){
+                if (!CGUI.menu.settingMode) {
+                    Mod mod = currentMod;
+                    float hoverOpacity;
+                    if (b2) {
+                        hoverOpacity = (float) RenderUtil.getAnimationState(currentMod.hoverOpacity, 0.25f, 1.0f);
+                    }
+                    else {
+                        hoverOpacity = (float) RenderUtil.getAnimationState(currentMod.hoverOpacity, 0.0f, 1.5f);
+                    }
+                    mod.hoverOpacity = hoverOpacity;
                 }
                 else {
-                    b3 = false;
+                    currentMod.hoverOpacity = 0.0f;
                 }
-                mod2.set(b3);
-            }
-            if (b2 && this.rightCrink.canExcecute() && !Client.instance.crink.menu.settingMode && Client.instance.crink.menu.currentMod == null && currentMod.hasValues()) {
-                Client.instance.crink.menu.settingMode = true;
-                Client.instance.crink.menu.currentMod = currentMod;
             }
 
-            if(fuck != null){
-                Client.instance.crink.menu.settingMode = true;
-                Client.instance.crink.menu.currentMod = fuck;
-                fuck = null;
+            try{
+                if (b2 && !Client.instance.crink.menu.settingMode && this.handler.canExcecute()) {
+                    Mod mod2 = currentMod;
+                    boolean b3;
+                    if (!currentMod.isEnabled()) {
+                        b3 = true;
+                    }
+                    else {
+                        b3 = false;
+                    }
+                    mod2.set(b3);
+                }
+                if (b2 && this.rightCrink.canExcecute() && !Client.instance.crink.menu.settingMode && Client.instance.crink.menu.currentMod == null && currentMod.hasValues()) {
+                    Client.instance.crink.menu.settingMode = true;
+                    Client.instance.crink.menu.currentMod = currentMod;
+                }
+            }catch (Exception e){
+                if (b2 && !CGUI.menu.settingMode && this.handler.canExcecute()) {
+                    Mod mod2 = currentMod;
+                    boolean b3;
+                    if (!currentMod.isEnabled()) {
+                        b3 = true;
+                    }
+                    else {
+                        b3 = false;
+                    }
+                    mod2.set(b3);
+                }
+                if (b2 && this.rightCrink.canExcecute() && !CGUI.menu.settingMode && CGUI.menu.currentMod == null && currentMod.hasValues()) {
+                    CGUI.menu.settingMode = true;
+                    CGUI.menu.currentMod = currentMod;
+                }
             }
+
             RenderUtil.drawRect((float)this.x, (float)n2, (float)(this.x + this.width), (float)(n2 + n3), Notification.reAlpha(Colors.BLACK.c, currentMod.hoverOpacity));
             if (currentMod.isEnabled()) {
                 tahoma16.drawString(currentMod.getRenderName(), this.x + 12.0f, (float)(n2 + (n3 - tahoma16.FONT_HEIGHT) / 2), Colors.WHITE.c);
@@ -126,19 +162,37 @@ public class UIMenuMods
         }
         GL11.glDisable(3089);
         GL11.glPopMatrix();
-        if (Client.instance.crink.menu.settingMode && Client.instance.crink.menu.currentMod != null) {
+
+        try{
+            if (Client.instance.crink.menu.settingMode && Client.instance.crink.menu.currentMod != null) {
+            }
+            else {
+                if (p_draw_1_ >= this.x && p_draw_1_ <= this.x + this.width && p_draw_2_ + this.scrollY >= this.y && p_draw_2_ + this.scrollY <= n2) {
+                    this.scrollY += Mouse.getDWheel() / 10.0f;
+                }
+                if (n2 - n3 - this.tab_height >= n && n2 - this.y + this.scrollY < (double)n) {
+                    this.scrollY = n - (float)n2 + this.y;
+                }
+                if (this.scrollY > 0.0f || n2 - n3 - this.tab_height < n) {
+                    this.scrollY = 0.0f;
+                }
+            }
+        }catch (Exception e){
+            if (CGUI.menu.settingMode && CGUI.menu.currentMod != null) {
+            }
+            else {
+                if (p_draw_1_ >= this.x && p_draw_1_ <= this.x + this.width && p_draw_2_ + this.scrollY >= this.y && p_draw_2_ + this.scrollY <= n2) {
+                    this.scrollY += Mouse.getDWheel() / 10.0f;
+                }
+                if (n2 - n3 - this.tab_height >= n && n2 - this.y + this.scrollY < (double)n) {
+                    this.scrollY = n - (float)n2 + this.y;
+                }
+                if (this.scrollY > 0.0f || n2 - n3 - this.tab_height < n) {
+                    this.scrollY = 0.0f;
+                }
+            }
         }
-        else {
-            if (p_draw_1_ >= this.x && p_draw_1_ <= this.x + this.width && p_draw_2_ + this.scrollY >= this.y && p_draw_2_ + this.scrollY <= n2) {
-                this.scrollY += Mouse.getDWheel() / 10.0f;
-            }
-            if (n2 - n3 - this.tab_height >= n && n2 - this.y + this.scrollY < (double)n) {
-                this.scrollY = n - (float)n2 + this.y;
-            }
-            if (this.scrollY > 0.0f || n2 - n3 - this.tab_height < n) {
-                this.scrollY = 0.0f;
-            }
-        }
+
     }
     
     public void mouseClick(int p_mouseClick_1_, int p_mouseClick_2_) {
