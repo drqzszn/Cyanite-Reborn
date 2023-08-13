@@ -65,6 +65,7 @@ public class ModManager {
         modList.add(new AntiObsidian());
         modList.add(new AutoHypixel());
         modList.add(new FastPlace());
+        modList.add(new IRC());
         modList.add(new MurderFinder());
         modList.add(new RotationAnimation());
     }

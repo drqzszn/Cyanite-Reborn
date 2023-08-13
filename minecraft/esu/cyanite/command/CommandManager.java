@@ -13,6 +13,7 @@ public class CommandManager {
         commands.add(new CommandFriend(new String[] { "friend" }));
         commands.add(new CommandConfig(new String[] { "config" }));
         commands.add(new CommandQQ(new String[] { "esu" }));
+        commands.add(new CommandIRC(new String[] {"irc"}));
     }
 
     public static ArrayList<Command> getCommands() {
