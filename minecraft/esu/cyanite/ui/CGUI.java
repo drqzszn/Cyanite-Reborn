@@ -35,6 +35,7 @@ public class CGUI extends GuiScreen {
     float temp1;
     float tempfff;
     public static ClickMenu menu;
+    float sfuck;
 
     @Override
     public void initGui() {
@@ -168,7 +169,7 @@ public class CGUI extends GuiScreen {
             }
         }
 
-        fff -= 200;
+        fff -= 205;
 
         if (temp > 0) {
             temp = 0;
@@ -180,11 +181,20 @@ public class CGUI extends GuiScreen {
         temp1 = RenderUtil.toanim(temp1, temp, 8, 0.1f);
         listy += temp1;
 
-        RenderUtil.drawRoundRect1(drawx1 - 4, (temp1 / -fff) * (210 - ((200f/(fff + 200)) * 210)) + drawy + 5, drawx1 - 1, (temp1 / -fff) * (210 - ((200f/(fff + 200)) * 210)) + drawy + 5 + (200f/(fff + 200)) * 210, 1, new Color(255, 255, 255,128));
+        if(sfuck == 0){
+            sfuck = 128;
+        }
+        if(isHovered(drawx1 - 4, (temp1 / -fff) * (210 - ((210f/(fff + 205)) * 210)) + drawy + 5, drawx1 - 1, (temp1 / -fff) * (210 - ((210f/(fff + 205)) * 210)) + drawy + 5 + (210f/(fff + 205)) * 210,mouseX,mouseY) || check == 5){
+            sfuck = RenderUtil.toanim(sfuck,200,8,0.1f);
+        }else{
+            sfuck = RenderUtil.toanim(sfuck,128,8,0.1f);
+        }
 
-        if(isHovered(drawx1 - 4, (temp1 / -fff) * (210 - ((200f/(fff + 200)) * 210)) + drawy + 5, drawx1 - 1, (temp1 / -fff) * (210 - ((200f/(fff + 200)) * 210)) + drawy + 5 + (200f/(fff + 200)) * 210,mouseX,mouseY) && check == 0 && Mouse.isButtonDown(0)){
+        RenderUtil.drawRoundRect1(drawx1 - 4, (temp1 / -fff) * (210 - ((210f/(fff + 205)) * 210)) + drawy + 5, drawx1 - 1, (temp1 / -fff) * (210 - ((210f/(fff + 205)) * 210)) + drawy + 5 + (210f/(fff + 205)) * 210, 1, new Color(255, 255, 255,(int)sfuck));
+
+        if(isHovered(drawx1 - 4, (temp1 / -fff) * (210 - ((210f/(fff + 205)) * 210)) + drawy + 5, drawx1 - 1, (temp1 / -fff) * (210 - ((210f/(fff + 205)) * 210)) + drawy + 5 + (210f/(fff + 205)) * 210,mouseX,mouseY) && check == 0 && Mouse.isButtonDown(0)){
             check = 5;
-            keydownY = (int) (mouseY - ((temp1 / -fff) * (210 - ((200f/(fff + 200)) * 210)) + drawy + 5));
+            keydownY = (int) (mouseY - ((temp1 / -fff) * (210 - ((210f/(fff + 205)) * 210)) + drawy + 5));
             tempfff = fff;
         }
 
@@ -291,7 +301,7 @@ public class CGUI extends GuiScreen {
         }
 
         if(check == 5){
-            temp = (mouseY - keydownY - y - 5)/(210 - ((200f/(tempfff + 200)) * 210))* (-tempfff);
+            temp = (mouseY - keydownY - y - 5)/(210 - ((210f/(tempfff + 205)) * 210))* (-tempfff);
             if (temp > 0) {
                 temp = 0;
             }
