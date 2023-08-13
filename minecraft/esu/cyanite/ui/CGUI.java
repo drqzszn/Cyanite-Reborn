@@ -308,7 +308,7 @@ public class CGUI extends GuiScreen {
             if (temp < -tempfff) {
                 temp = -tempfff;
             }
-            temp1 = temp;
+            //temp1 = temp;
         }
     }
 
