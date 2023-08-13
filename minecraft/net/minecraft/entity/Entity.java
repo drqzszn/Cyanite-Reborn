@@ -634,7 +634,7 @@ public abstract class Entity implements ICommandSender
             double d5 = z;
             boolean flag = this.onGround && this.isSneaking() && this instanceof EntityPlayer;
 
-            if (flag || ModManager.getModByName("Scaffold").isEnabled() && !Keyboard.isKeyDown((int)42))
+            if (flag || ModManager.getModByName("Scaffold").isEnabled() || ModManager.getModByName("SafeWalk").isEnabled() && !Keyboard.isKeyDown((int)42))
             {
                 double d6;
 

@@ -31,6 +31,7 @@ public class ModManager {
         modList.add(new AutoSword());
         modList.add(new RealBobbing());
         modList.add(new Scaffold());
+        modList.add(new SafeWalk());
         modList.add(new Speed());
         modList.add(new KillAura());
         modList.add(new AntiBot());
