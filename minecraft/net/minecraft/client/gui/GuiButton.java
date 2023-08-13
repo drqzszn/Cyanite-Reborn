@@ -66,9 +66,11 @@ public class GuiButton extends Gui {
 //            GlStateManager.blendFunc(770, 771);
             this.animation = RenderUtil.getAnimationState(this.animation, (double)(this.hovered ? 0.2F : 0.1F), 5D);
             if (hovered) {
-                anim1 = (float)AnimationUtils.animate(18, anim1, 0.25f);
+                //anim1 = (float)AnimationUtils.animate(18, anim1, 0.25f);
+                anim1 = RenderUtil.toanim(anim1,18,6,0.1f);
             }else {
-                anim1 = (float)AnimationUtils.animate(0, anim1, 0.25f);
+                //anim1 = (float)AnimationUtils.animate(0, anim1, 0.25f);
+                anim1 = RenderUtil.toanim(anim1,0,6,0.1f);
             }
             if (this.enabled) {
                 RenderUtil.drawGradientSideways((float)this.xPosition, (float)this.yPosition+18-anim1, (float)(this.xPosition + this.width), (float)(this.yPosition + this.height), SuperLib.reAlpha(new Color(10, 90, 205).getRGB(), 0.95F),SuperLib.reAlpha(new Color(1, 190, 206).getRGB(),0.95F));
