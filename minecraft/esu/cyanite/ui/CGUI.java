@@ -83,7 +83,7 @@ public class CGUI extends GuiScreen {
             if (calpha[i] == 0) {
                 calpha[i] = 390;
             }
-            if (isHovered(cdrawx, cdrawy, cdrawx + 100, cdrawy + 20, mouseX, mouseY)) {
+            if (isHovered(cdrawx, cdrawy, cdrawx + 100, cdrawy + 20, mouseX, mouseY) && check == 0) {
                 calpha[i] = RenderUtil.toanim(calpha[i], 690, 20, 1f);
             } else {
                 calpha[i] = RenderUtil.toanim(calpha[i], 390, 20, 1f);
@@ -206,7 +206,7 @@ public class CGUI extends GuiScreen {
                 if (m.getAlpha1() == 0) {
                     m.setAlpha1(66);
                 }
-                if (isHovered(listx, listy, drawx1 - 5, listy + 36, mouseX, mouseY) && isHovered(listx - 5, drawy + 5, drawx1, drawy1 - 5, mouseX, mouseY)) {
+                if (isHovered(listx, listy, drawx1 - 5, listy + 36, mouseX, mouseY) && isHovered(listx - 5, drawy + 5, drawx1, drawy1 - 5, mouseX, mouseY) && check == 0) {
                     m.setAlpha1(RenderUtil.toanim(m.getAlpha1(), 165, 16, 0.1f));
                 } else {
                     m.setAlpha1(RenderUtil.toanim(m.getAlpha1(), 66, 16, 0.1f));
@@ -236,7 +236,7 @@ public class CGUI extends GuiScreen {
                 Minecraft.getMinecraft().getTextureManager().bindTexture(l);
                 RenderUtil.drawImage(l, (int) listx + 10, (int) (listy + 10), (int) (14), (int) (14), new Color((int) m.getAlpha3(), (int) m.getAlpha3(), (int) m.getAlpha3()));
 
-                if (isHovered(listx - 5, drawy + 5, drawx1, drawy1 - 5, mouseX, mouseY)) {
+                if (isHovered(listx - 5, drawy + 5, drawx1, drawy1 - 5, mouseX, mouseY) && check == 0) {
                     if (isHovered(listx, listy, drawx1 - 5, listy + 36, mouseX, mouseY) && check == 0 && Mouse.isButtonDown(0)) {
                         check = 3;
                         m.set(!m.isEnabled());
