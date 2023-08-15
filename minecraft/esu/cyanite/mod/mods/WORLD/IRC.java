@@ -27,7 +27,7 @@ public class IRC extends Mod {
 
             // 获取输入流和输出流
             InputStream inputStream = clientSocket.getInputStream();
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
 
             // 创建线程来持续监听服务器消息
             Thread receiveThread = new Thread(() -> {
@@ -38,7 +38,7 @@ public class IRC extends Mod {
                             System.out.println("与服务器的连接已断开。");
                             break;
                         }
-                        PlayerUtil.tellDebugPlayer("群聊消息: " +serverMessage);
+                        PlayerUtil.tellDebugPlayer(serverMessage);
                     }
                 } catch (IOException e) {
                     e.printStackTrace();

@@ -17,7 +17,7 @@ public class CommandIRC extends Command {
         if (args.length == 2) {
             if (ModManager.getModByName("IRC").isEnabled()) {
 
-                TCPClient.sendMessage("103.239.245.36", 25862, "[Cyanite]" + Minecraft.thePlayer.getName() + ": " + args[1]);
+                TCPClient.sendMessage("103.239.245.36", 25862, Minecraft.thePlayer.getName() + ": " + args[1]);
             }
             else {
                 PlayerUtil.tellDebugPlayer("Please Enable IRC");
