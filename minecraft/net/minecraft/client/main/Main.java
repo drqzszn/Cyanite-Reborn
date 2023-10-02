@@ -11,6 +11,8 @@ import java.net.PasswordAuthentication;
 import java.net.Proxy;
 import java.net.Proxy.Type;
 import java.util.List;
+
+import de.florianmichael.viamcp.ViaMCP;
 import joptsimple.OptionParser;
 import joptsimple.OptionSet;
 import joptsimple.OptionSpec;
@@ -115,6 +117,7 @@ public class Main
         });
         Thread.currentThread().setName("Client thread");
         (new Minecraft(gameconfiguration)).run();
+
     }
 
     private static boolean isNullOrEmpty(String str)
