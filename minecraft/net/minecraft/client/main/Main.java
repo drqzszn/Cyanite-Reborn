@@ -23,9 +23,17 @@ public class Main
 {
     public static void main(String[] p_main_0_)
     {
-    	
-    	// Src By liaic OptiFine_1.8.9_HD_U_I7.
-    	// Go to optifine/Config.java to see optifine version.
+
+        try {
+            ViaMCP.create();
+
+            // In case you want a version slider like in the Minecraft options, you can use this code here, please choose one of those:
+
+            ViaMCP.INSTANCE.initAsyncSlider(); // For top left aligned slider
+            ViaMCP.INSTANCE.initAsyncSlider();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     	
         System.setProperty("java.net.preferIPv4Stack", "true");
         OptionParser optionparser = new OptionParser();
