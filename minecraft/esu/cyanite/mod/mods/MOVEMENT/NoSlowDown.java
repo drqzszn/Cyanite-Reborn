@@ -6,8 +6,10 @@ package esu.cyanite.mod.mods.MOVEMENT;
 import esu.cyanite.events.EventPostMotion;
 import esu.cyanite.events.EventPreMotion;
 import esu.cyanite.events.EventUpdate;
+import esu.cyanite.events.PacketSendEvent;
 import esu.cyanite.mod.Category;
 import esu.cyanite.mod.Mod;
+import esu.cyanite.utils.MovementUtils;
 import esu.cyanite.value.Value;
 import com.darkmagician6.eventapi.EventTarget;
 import net.minecraft.client.Minecraft;
@@ -23,34 +25,18 @@ extends Mod {
     public NoSlowDown() {
         super("NoSlowDown", "No Slow Down", Category.MOVEMENT);
         this.mode.addValue("Vanilla");
-        this.mode.addValue("NCP");
     }
 
-    @EventTarget
-    public void onUpdate(EventUpdate event) {
-        if (this.mode.isCurrentMode("Vanilla")) {
-            this.setDisplayName("Vanilla");
-        } else if (this.mode.isCurrentMode("NCP")) {
-            this.setDisplayName("NCP");
+
+
+    public void onPacketSendEvent (PacketSendEvent e){
+        if (mc.thePlayer == null) {
+            return;
         }
-    }
 
-    @EventTarget
-    public void onPre(EventPreMotion event) {
-        if (this.isMoving() && Minecraft.thePlayer.isBlocking() && this.mode.isCurrentMode("NCP")) {
-            Minecraft.thePlayer.sendQueue.getNetworkManager().sendPacket(new C07PacketPlayerDigging(C07PacketPlayerDigging.Action.RELEASE_USE_ITEM, BlockPos.ORIGIN, EnumFacing.DOWN));
+        if (mc.thePlayer.isEating()
+                && MovementUtils.isMoving() && e.getPacket() instanceof C08PacketPlayerBlockPlacement) {
         }
-    }
-
-    @EventTarget
-    public void onPost(EventPostMotion event) {
-        if (this.isMoving() && Minecraft.thePlayer.isBlocking() && this.mode.isCurrentMode("NCP")) {
-            Minecraft.thePlayer.sendQueue.getNetworkManager().sendPacket(new C08PacketPlayerBlockPlacement(Minecraft.thePlayer.getHeldItem()));
-        }
-    }
-
-    public boolean isMoving() {
-        return Minecraft.thePlayer.moveForward != 0.0f || Minecraft.thePlayer.moveStrafing != 0.0f;
     }
 }
 
