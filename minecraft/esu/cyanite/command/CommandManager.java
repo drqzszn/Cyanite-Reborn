@@ -14,6 +14,7 @@ public class CommandManager {
         commands.add(new CommandConfig(new String[] { "config" }));
         commands.add(new CommandQQ(new String[] { "esu" }));
         commands.add(new CommandIRC(new String[] {"irc"}));
+        commands.add(new CommandMusic(new String[] { "music" }));
     }
 
     public static ArrayList<Command> getCommands() {
