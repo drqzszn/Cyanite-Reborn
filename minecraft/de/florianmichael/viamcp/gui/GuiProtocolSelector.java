@@ -1,6 +1,6 @@
 /*
  * This file is part of ViaMCP - https://github.com/FlorianMichael/ViaMCP
- * Copyright (C) 2020-2023 FlorianMichael/EnZaXD and contributors
+ * Copyright (C) 2020-2024 FlorianMichael/EnZaXD <florian.michael07@gmail.com> and contributors
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,6 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
 package de.florianmichael.viamcp.gui;
 
 import com.viaversion.viaversion.api.protocol.version.ProtocolVersion;
@@ -112,7 +113,7 @@ public class GuiProtocolSelector extends GuiScreen {
 
         @Override
         protected void drawSlot(int i, int i1, int i2, int i3, int i4, int i5) {
-            drawCenteredString(mc.fontRendererObj,(ViaLoadingBase.getInstance().getTargetVersion().getIndex() == i ? EnumChatFormatting.GREEN.toString() + EnumChatFormatting.BOLD : EnumChatFormatting.GRAY.toString()) + ViaLoadingBase.getProtocols().get(i).getName(), width / 2, i2 + 2, -1);
+            drawCenteredString(mc.fontRendererObj,(ViaLoadingBase.PROTOCOLS.indexOf(ViaLoadingBase.getInstance().getTargetVersion()) == i ? EnumChatFormatting.GREEN.toString() + EnumChatFormatting.BOLD : EnumChatFormatting.GRAY.toString()) + ViaLoadingBase.getProtocols().get(i).getName(), width / 2, i2 + 2, -1);
             GlStateManager.pushMatrix();
             GlStateManager.scale(0.5, 0.5, 0.5);
             drawCenteredString(mc.fontRendererObj, "PVN: " + ViaLoadingBase.getProtocols().get(i).getVersion(), width, (i2 + 2) * 2 + 20, -1);

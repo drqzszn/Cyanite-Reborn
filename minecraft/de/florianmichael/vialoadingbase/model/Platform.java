@@ -1,6 +1,6 @@
 /*
  * This file is part of ViaLoadingBase - https://github.com/FlorianMichael/ViaLoadingBase
- * Copyright (C) 2022-2023 FlorianMichael/EnZaXD and contributors
+ * Copyright (C) 2020-2024 FlorianMichael/EnZaXD <florian.michael07@gmail.com> and contributors
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,12 +15,12 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
 package de.florianmichael.vialoadingbase.model;
 
 import com.viaversion.viaversion.api.protocol.version.ProtocolVersion;
 import de.florianmichael.vialoadingbase.ViaLoadingBase;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.function.BooleanSupplier;
 import java.util.function.Consumer;
@@ -28,7 +28,6 @@ import java.util.logging.Logger;
 
 public class Platform {
     public static int COUNT = 0;
-    public final static List<ProtocolVersion> TEMP_INPUT_PROTOCOLS = new ArrayList<>(); // List of all Platform's protocol versions
 
     private final String name;
     private final BooleanSupplier load;
@@ -52,7 +51,7 @@ public class Platform {
 
     public void createProtocolPath() {
         if (this.versionCallback != null) {
-            this.versionCallback.accept(TEMP_INPUT_PROTOCOLS);
+            this.versionCallback.accept(ViaLoadingBase.PROTOCOLS);
         }
     }
 
