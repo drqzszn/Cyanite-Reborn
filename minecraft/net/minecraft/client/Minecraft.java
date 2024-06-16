@@ -228,7 +228,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage
 
     /** True if the player is connected to a realms server */
     private boolean connectedToRealms = false;
-    public Timer timer = new Timer(20.0F);
+    public static Timer timer = new Timer(20.0F);
 
     /** Instance of PlayerUsageSnooper. */
     private PlayerUsageSnooper usageSnooper = new PlayerUsageSnooper("client", this, MinecraftServer.getCurrentTimeMillis());
@@ -238,7 +238,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage
     private RenderItem renderItem;
     private ItemRenderer itemRenderer;
     public static EntityPlayerSP thePlayer;
-    private Entity renderViewEntity;
+    private static Entity renderViewEntity;
     public Entity pointedEntity;
     public EffectRenderer effectRenderer;
     public static Session session;
@@ -276,7 +276,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage
     public MovingObjectPosition objectMouseOver;
 
     /** The game settings that currently hold effect. */
-    public GameSettings gameSettings;
+    public static GameSettings gameSettings;
 
     /** Mouse helper instance. */
     public MouseHelper mouseHelper;
@@ -320,7 +320,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage
     private boolean integratedServerIsRunning;
 
     /** The profiler instance */
-    public final Profiler mcProfiler = new Profiler();
+    public static final Profiler mcProfiler = new Profiler();
 
     /**
      * Keeps track of how long the debug crash keycombo (F3+C) has been pressed for, in order to crash after 10 seconds.
@@ -3242,9 +3242,9 @@ public class Minecraft implements IThreadListener, IPlayerUsage
         return this.skinManager;
     }
 
-    public Entity getRenderViewEntity()
+    public static Entity getRenderViewEntity()
     {
-        return this.renderViewEntity;
+        return renderViewEntity;
     }
 
     public void setRenderViewEntity(Entity viewingEntity)

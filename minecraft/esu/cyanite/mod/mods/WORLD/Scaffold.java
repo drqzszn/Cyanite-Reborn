@@ -259,16 +259,16 @@ public class Scaffold extends Mod {
             return new BlockData(pos.add(0, -1, 0), EnumFacing.UP, this.blockData);
         }
         if (!blacklistedBlocks.contains(this.mc.theWorld.getBlockState(pos.add(-1, 0, 0)).getBlock())) {
-            return new BlockData(pos.add(-1, 0, 0), Keyboard.isKeyDown((int) 42) && Minecraft.thePlayer.onGround && Minecraft.thePlayer.fallDistance == 0.0f && this.mc.theWorld.getBlockState(new BlockPos(Minecraft.thePlayer.posX, Minecraft.thePlayer.posY - 1.0, Minecraft.thePlayer.posZ)).getBlock() == Blocks.air ? EnumFacing.DOWN : EnumFacing.EAST, this.blockData);
+            return new BlockData(pos.add(-1, 0, 0), Keyboard.isKeyDown((int) 42) && Minecraft.thePlayer.onGround && Minecraft.thePlayer.fallDistance == 0.0f && blacklistedBlocks.contains(this.mc.theWorld.getBlockState(new BlockPos(Minecraft.thePlayer.posX, Minecraft.thePlayer.posY - 1.0, Minecraft.thePlayer.posZ)).getBlock()) ? EnumFacing.DOWN : EnumFacing.EAST, this.blockData);
         }
         if (!blacklistedBlocks.contains(this.mc.theWorld.getBlockState(pos.add(1, 0, 0)).getBlock())) {
-            return new BlockData(pos.add(1, 0, 0), Keyboard.isKeyDown((int) 42) && Minecraft.thePlayer.onGround && Minecraft.thePlayer.fallDistance == 0.0f && this.mc.theWorld.getBlockState(new BlockPos(Minecraft.thePlayer.posX, Minecraft.thePlayer.posY - 1.0, Minecraft.thePlayer.posZ)).getBlock() == Blocks.air ? EnumFacing.DOWN : EnumFacing.WEST, this.blockData);
+            return new BlockData(pos.add(1, 0, 0), Keyboard.isKeyDown((int) 42) && Minecraft.thePlayer.onGround && Minecraft.thePlayer.fallDistance == 0.0f && blacklistedBlocks.contains(this.mc.theWorld.getBlockState(new BlockPos(Minecraft.thePlayer.posX, Minecraft.thePlayer.posY - 1.0, Minecraft.thePlayer.posZ)).getBlock()) ? EnumFacing.DOWN : EnumFacing.WEST, this.blockData);
         }
         if (!blacklistedBlocks.contains(this.mc.theWorld.getBlockState(pos.add(0, 0, -1)).getBlock())) {
-            return new BlockData(pos.add(0, 0, -1), Keyboard.isKeyDown((int) 42) && Minecraft.thePlayer.onGround && Minecraft.thePlayer.fallDistance == 0.0f && this.mc.theWorld.getBlockState(new BlockPos(Minecraft.thePlayer.posX, Minecraft.thePlayer.posY - 1.0, Minecraft.thePlayer.posZ)).getBlock() == Blocks.air ? EnumFacing.DOWN : EnumFacing.SOUTH, this.blockData);
+            return new BlockData(pos.add(0, 0, -1), Keyboard.isKeyDown((int) 42) && Minecraft.thePlayer.onGround && Minecraft.thePlayer.fallDistance == 0.0f && blacklistedBlocks.contains(this.mc.theWorld.getBlockState(new BlockPos(Minecraft.thePlayer.posX, Minecraft.thePlayer.posY - 1.0, Minecraft.thePlayer.posZ)).getBlock() ) ? EnumFacing.DOWN : EnumFacing.SOUTH, this.blockData);
         }
         if (!blacklistedBlocks.contains(this.mc.theWorld.getBlockState(pos.add(0, 0, 1)).getBlock())) {
-            return new BlockData(pos.add(0, 0, 1), Keyboard.isKeyDown((int) 42) && Minecraft.thePlayer.onGround && Minecraft.thePlayer.fallDistance == 0.0f && this.mc.theWorld.getBlockState(new BlockPos(Minecraft.thePlayer.posX, Minecraft.thePlayer.posY - 1.0, Minecraft.thePlayer.posZ)).getBlock() == Blocks.air ? EnumFacing.DOWN : EnumFacing.NORTH, this.blockData);
+            return new BlockData(pos.add(0, 0, 1), Keyboard.isKeyDown((int) 42) && Minecraft.thePlayer.onGround && Minecraft.thePlayer.fallDistance == 0.0f && blacklistedBlocks.contains(this.mc.theWorld.getBlockState(new BlockPos(Minecraft.thePlayer.posX, Minecraft.thePlayer.posY - 1.0, Minecraft.thePlayer.posZ)).getBlock() ) ? EnumFacing.DOWN : EnumFacing.NORTH, this.blockData);
         }
         BlockPos add = pos.add(-1, 0, 0);
         if (!blacklistedBlocks.contains(this.mc.theWorld.getBlockState(add.add(-1, 0, 0)).getBlock())) {

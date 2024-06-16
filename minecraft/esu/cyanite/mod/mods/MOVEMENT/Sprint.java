@@ -20,7 +20,8 @@ extends Mod {
 
     @EventTarget
     public void onPre(EventPreMotion event) {
-        if (!Minecraft.thePlayer.isCollidedHorizontally && !Minecraft.thePlayer.isSneaking() && Minecraft.thePlayer.getFoodStats().getFoodLevel() > 6 && (this.omni.getValueState() != false ? this.isMoving() : Minecraft.thePlayer.moveForward > 0.0f)) {
+        if (!Minecraft.thePlayer.isCollidedHorizontally && !Minecraft.thePlayer.isSneaking() && Minecraft.thePlayer.getFoodStats().getFoodLevel() > 6 && (this.omni.getValueState() ? this.isMoving() : Minecraft.thePlayer.moveForward > 0.0f)) {
+
             Minecraft.thePlayer.setSprinting(true);
         }
     }

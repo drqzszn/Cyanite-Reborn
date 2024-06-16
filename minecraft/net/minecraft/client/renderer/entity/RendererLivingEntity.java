@@ -125,7 +125,7 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
                 float f1 = this.interpolateRotation(entity.prevRotationYawHead, entity.rotationYawHead, partialTicks);
                 float f8 = entity.prevRotationPitch + (entity.rotationPitch - entity.prevRotationPitch) * partialTicks;
 
-                if(ModManager.getModByName("RotationAnimation").isEnabled() && (ModManager.getModByName("Aura").isEnabled() || ModManager.getModByName("Scaffold").isEnabled())){
+                if(ModManager.getModByName("RotationAnimation").isEnabled() && (ModManager.getModByName("KillAura").isEnabled() || ModManager.getModByName("Scaffold").isEnabled())){
                     if (entity == Minecraft.thePlayer) {
                         partialTicks /= 4;
                         if(Client.yaw != 114514 && Client.pitch != 114514){
@@ -223,7 +223,8 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
 
                 GlStateManager.disableRescaleNormal();
             } catch (Exception exception) {
-                logger.error((String) "Couldn\'t render entity", (Throwable) exception);
+                exception.printStackTrace();
+                //logger.error((String) "Couldn\'t render entity", (Throwable) exception);
             }
 
             GlStateManager.setActiveTexture(OpenGlHelper.lightmapTexUnit);

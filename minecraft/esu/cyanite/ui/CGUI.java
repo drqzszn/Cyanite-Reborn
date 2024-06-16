@@ -8,7 +8,6 @@ import esu.cyanite.ui.ClickGUI.ClickMenu;
 import esu.cyanite.ui.ClickGUI.UIMenuMods;
 import esu.cyanite.utils.render.RenderUtil;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
@@ -22,20 +21,29 @@ import java.io.IOException;
 public class CGUI extends GuiScreen {
     public static float x, y;
     public static float width = 356, height = 220;
-    int check = 0; // 1 2 3 4 5
-    int keydownX, keydownY;
-    float alpha;
-    float[] calpha = new float[5];
+    public static ClickMenu menu;
     static Category category = Category.COMBAT;
     static float categoryanimy = 64;
     static float lastcategoryanimy = 64;
     static float[] fuckalpha = new float[5];
+    int check = 0; // 1 2 3 4 5
+    int keydownX, keydownY;
+    float alpha;
+    float[] calpha = new float[5];
     float esualpha;
     float temp;
     float temp1;
     float tempfff;
-    public static ClickMenu menu;
     float sfuck;
+    float afuck;
+    float smfuck;
+
+    public static boolean isHovered(float x, float y, float x2, float y2, int mouseX, int mouseY) {
+        if (menu.settingMode) {
+            return false;
+        }
+        return mouseX >= x && mouseX <= x2 && mouseY >= y && mouseY <= y2;
+    }
 
     @Override
     public void initGui() {
@@ -181,20 +189,38 @@ public class CGUI extends GuiScreen {
         temp1 = RenderUtil.toanim(temp1, temp, 8, 0.1f);
         listy += temp1;
 
-        if(sfuck == 0){
+        if (sfuck == 0) {
             sfuck = 128;
         }
-        if(isHovered(drawx1 - 4, (temp1 / -fff) * (210 - ((210f/(fff + 205)) * 210)) + drawy + 5, drawx1 - 1, (temp1 / -fff) * (210 - ((210f/(fff + 205)) * 210)) + drawy + 5 + (210f/(fff + 205)) * 210,mouseX,mouseY) || check == 5){
-            sfuck = RenderUtil.toanim(sfuck,200,8,0.1f);
-        }else{
-            sfuck = RenderUtil.toanim(sfuck,128,8,0.1f);
+
+        if (isHovered(drawx1 - 4, (temp1 / -fff) * (210 - ((210f / (fff + 205)) * 210)) + drawy + 5, drawx1 - 1, (temp1 / -fff) * (210 - ((210f / (fff + 205)) * 210)) + drawy + 5 + (210f / (fff + 205)) * 210, mouseX, mouseY) || check == 5) {
+            sfuck = RenderUtil.toanim(sfuck, 200, 8, 0.1f);
+            afuck = RenderUtil.toanim(afuck, 200, 8, 0.1f);
+        } else {
+            sfuck = RenderUtil.toanim(sfuck, 128, 8, 0.1f);
+            afuck = RenderUtil.toanim(afuck, 0, 8, 0.1f);
         }
 
-        RenderUtil.drawRoundRect1(drawx1 - 4, (temp1 / -fff) * (210 - ((210f/(fff + 205)) * 210)) + drawy + 5, drawx1 - 1, (temp1 / -fff) * (210 - ((210f/(fff + 205)) * 210)) + drawy + 5 + (210f/(fff + 205)) * 210, 1, new Color(255, 255, 255,(int)sfuck));
 
-        if(isHovered(drawx1 - 4, (temp1 / -fff) * (210 - ((210f/(fff + 205)) * 210)) + drawy + 5, drawx1 - 1, (temp1 / -fff) * (210 - ((210f/(fff + 205)) * 210)) + drawy + 5 + (210f/(fff + 205)) * 210,mouseX,mouseY) && check == 0 && Mouse.isButtonDown(0)){
+        float afuckt = (int) afuck;
+
+        if(smfuck == 0){
+            smfuck = 1;
+        }
+        if (check != 5) {
+            smfuck = RenderUtil.toanim(smfuck, 1.5f, 8, 0.05f);
+        } else {
+            smfuck = RenderUtil.toanim(smfuck, 1, 8, 0.05f);
+        }
+        float lllp = (int) ((sfuck/smfuck - afuck/smfuck) / (255f - afuck/smfuck) * 255f);
+        afuckt /= smfuck;
+
+        RenderUtil.drawRoundRect1(drawx1 - 4 + 1, (temp1 / -fff) * (210 - ((210f / (fff + 205)) * 210)) + drawy + 5, drawx1 - 1 - 1, (temp1 / -fff) * (210 - ((210f / (fff + 205)) * 210)) + drawy + 5 + (210f / (fff + 205)) * 210, 1, new Color(255, 255, 255, (int) lllp));
+        RenderUtil.drawRoundRect1(drawx1 - 4, (temp1 / -fff) * (210 - ((210f / (fff + 205)) * 210)) + drawy + 5, drawx1 - 1, (temp1 / -fff) * (210 - ((210f / (fff + 205)) * 210)) + drawy + 5 + (210f / (fff + 205)) * 210, 1, new Color(255, 255, 255, (int) afuckt));
+
+        if (isHovered(drawx1 - 4, (temp1 / -fff) * (210 - ((210f / (fff + 205)) * 210)) + drawy + 5, drawx1 - 1, (temp1 / -fff) * (210 - ((210f / (fff + 205)) * 210)) + drawy + 5 + (210f / (fff + 205)) * 210, mouseX, mouseY) && check == 0 && Mouse.isButtonDown(0)) {
             check = 5;
-            keydownY = (int) (mouseY - ((temp1 / -fff) * (210 - ((210f/(fff + 205)) * 210)) + drawy + 5));
+            keydownY = (int) (mouseY - ((temp1 / -fff) * (210 - ((210f / (fff + 205)) * 210)) + drawy + 5));
             tempfff = fff;
         }
 
@@ -211,7 +237,7 @@ public class CGUI extends GuiScreen {
                 } else {
                     m.setAlpha1(RenderUtil.toanim(m.getAlpha1(), 66, 16, 0.1f));
                 }
-                RenderUtil.drawRoundRect1(listx, listy, drawx1 - 5, listy + 36, 4, new Color((int) m.getAlpha1(), (int) m.getAlpha1(), (int) m.getAlpha1()));
+                RenderUtil.drawRoundRect1(listx, listy, drawx1 - 5, listy + 36, 5, new Color((int) m.getAlpha1(), (int) m.getAlpha1(), (int) m.getAlpha1()));
 
                 if (m.getAlpha2() == 0) {
                     m.setAlpha2(40);
@@ -300,8 +326,8 @@ public class CGUI extends GuiScreen {
             y = mouseY - keydownY;
         }
 
-        if(check == 5){
-            temp = (mouseY - keydownY - y - 5)/(210 - ((210f/(tempfff + 205)) * 210))* (-tempfff);
+        if (check == 5) {
+            temp = (mouseY - keydownY - y - 5) / (210 - ((210f / (tempfff + 205)) * 210)) * (-tempfff);
             if (temp > 0) {
                 temp = 0;
             }
@@ -315,12 +341,5 @@ public class CGUI extends GuiScreen {
     @Override
     protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
         menu.mouseClick(mouseX, mouseY);
-    }
-
-    public static boolean isHovered(float x, float y, float x2, float y2, int mouseX, int mouseY) {
-        if (menu.settingMode) {
-            return false;
-        }
-        return mouseX >= x && mouseX <= x2 && mouseY >= y && mouseY <= y2;
     }
 }
